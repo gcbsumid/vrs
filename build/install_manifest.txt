@@ -1,0 +1,3 @@
+/home/christian/Documents/DesignProject/FYDP/build/dist/.//media/MonsterHead.mesh
+/home/christian/Documents/DesignProject/FYDP/build/dist/bin/plugins.cfg
+/home/christian/Documents/DesignProject/FYDP/build/dist/bin/resources.cfg
