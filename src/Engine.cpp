@@ -12,7 +12,6 @@ Engine::~Engine() {
 }
 
 void Engine::run() {
-    mRenderSystem->initCamera();
     mRenderSystem->initScene();
 
     mRenderSystem->run();

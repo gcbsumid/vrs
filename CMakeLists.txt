@@ -73,21 +73,27 @@ endif(OGRE_Terrain_FOUND)
 
 set(HDRS 
     ./src/Engine.hpp
-    ./src/RenderSystem.hpp
-    ./src/ResourceManager.hpp
     ./src/Subject.hpp
     ./src/Observer.hpp
     ./src/Events.hpp
-    ./src/Entity.hpp
+    ./src/RenderSystem/RenderSystem.hpp
+    ./src/RenderSystem/ResourceManager.hpp
+    ./src/Commands/Command.hpp
+    ./src/Commands/UpdateCommand.hpp
+    ./src/Commands/TranslateCommand.hpp
+    ./src/Commands/CreateCommand.hpp
+    ./src/Commands/DeleteCommand.hpp
 )
 
 set(SRCS
     ./src/main.cpp
     ./src/Engine.cpp
-    ./src/RenderSystem.cpp
-    ./src/ResourceManager.cpp
     ./src/Subject.cpp
-    ./src/Entity.cpp
+    ./src/RenderSystem/RenderSystem.cpp
+    ./src/RenderSystem/ResourceManager.cpp
+    ./src/Commands/TranslateCommand.cpp
+    ./src/Commands/CreateCommand.cpp
+    ./src/Commands/DeleteCommand.cpp
 )
 
 include_directories( 

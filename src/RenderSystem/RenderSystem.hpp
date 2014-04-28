@@ -7,20 +7,34 @@
 #include "OGRE/OgreWindowEventUtilities.h"
 
 #include "ResourceManager.hpp"
+#include "../Commands/Command.hpp"
 
 #include <memory>
+#include <Queue>
 
 namespace VRS {
-    class RenderSystem {
+
+    class IRenderSystem {
+    public:
+        virtual ~IRenderSystem() {}  
+        virtual void addCommand(Command*) = 0;
+    };
+
+
+    class RenderSystem : public IRenderSystem {
     public:
         RenderSystem();
         ~RenderSystem();
 
-        void run();
-        void initCamera();
-        void initScene();
+        void addCommand(Command* command);
         void loadResources();
+        void run();
+        void initScene(std::string dotSceneFilename);
+
     private:
+        void loadHome();
+        void initCamera();
+        void processCommands();
 
         // Optional Config file for render system
         Ogre::String mRenderSystemConfigFileName;
@@ -49,6 +63,8 @@ namespace VRS {
         unsigned int mWindowWidth;
         unsigned int mWindowHeight;
         bool mFullScreen;
+
+        std::Queue<Command*> mCommands;
     };    
 }
 

@@ -22,22 +22,6 @@ RenderSystem::RenderSystem() :
         std::unique_ptr<Ogre::Root> root(new Ogre::Root(mPluginConfigFileName, mRenderSystemConfigFileName, mLogFileName));
         mRoot = std::move(root);
 
-        // std::vector<string> pluginNames;
-        // pluginNames.push_back("RenderSystem_GL");
-        // pluginNames.push_back("Plugin_ParticleFX");
-        // pluginNames.push_back("Plugin_CgProgramManager");
-        // pluginNames.push_back("Plugin_OctreeSceneManager");
-
-        // {
-        //     for (auto& plugin : pluginNames) {
-        //         bool isInDebugMode = OGRE_DEBUG_MODE;
-        //         if (isInDebugMode) {
-        //             plugin.append("_d");
-        //         }
-        //         mRoot->loadPlugin(plugin);
-        //     } 
-        // }
-
         const Ogre::RenderSystemList& mRenderSystemList = mRoot->getAvailableRenderers();
         if (mRenderSystemList.size() == 0) {
             Ogre::LogManager::getSingleton().logMessage("Sorry, no rendersystem was found.");
@@ -69,6 +53,51 @@ RenderSystem::RenderSystem() :
 RenderSystem::~RenderSystem() {
 }
 
+void RenderSystem::run() {
+    // Clears OS messages (e.g. Input messages)
+    mRoot->clearEventTimes();
+
+    try {
+        Ogre::SceneNode* lightNode = mSceneManager->getSceneNode("sun");
+        while (!mWindow->isClosed()) {
+            Ogre::Degree angle(2.5);
+            lightNode->yaw(angle);
+
+            mWindow->update(false);
+            mWindow->swapBuffers();
+            mRoot->renderOneFrame();
+            Ogre::WindowEventUtilities::messagePump();
+        }
+
+        Ogre::LogManager::getSingleton().logMessage("endOfProgram");
+    } catch (Ogre::Exception &e) {
+        std::cout << "Ogre Exception: " << e.what() << std::endl;
+    }
+}
+
+void RenderSystem::loadResources() {
+    mResourceManager->loadResourcesFromConfigFile(mResourcesConfigFileName);
+}
+
+void RenderSystem::addCommand(Command* command) {
+    // Todo: Implement
+}
+
+void RenderSystem::processCommands() {
+    // Todo: Implement
+}
+
+
+
+// Temp
+void RenderSystem::initScene(std::string dotSceneFilename = "") {
+    if (!dotSceneFilename.empty()) {
+        // Todo: Implement dotScene parse
+        return;
+    }
+    loadHome();
+}
+
 void RenderSystem::initCamera() {
     // Create Camera
     Ogre::Camera* camera = mSceneManager->createCamera("Camera");
@@ -96,32 +125,8 @@ void RenderSystem::initCamera() {
     mWindow->setAutoUpdated(false);
 }
 
-void RenderSystem::run() {
-    // Clears OS messages (e.g. Input messages)
-    mRoot->clearEventTimes();
-
-    try {
-        Ogre::SceneNode* lightNode = mSceneManager->getSceneNode("sun");
-        while (!mWindow->isClosed()) {
-            Ogre::Degree angle(2.5);
-            lightNode->yaw(angle);
-
-            mWindow->update(false);
-            mWindow->swapBuffers();
-            mRoot->renderOneFrame();
-            Ogre::WindowEventUtilities::messagePump();
-        }
-
-        Ogre::LogManager::getSingleton().logMessage("endOfProgram");
-    } catch (Ogre::Exception &e) {
-        std::cout << "Ogre Exception: " << e.what() << std::endl;
-    }
-}
-
-// Temp
-void RenderSystem::initScene() {
-    // mResourceManager->createCube();
-    // mResourceManager->initialiseCube();
+void RenderSystem::loadHome() {
+    initCamera();
     loadResources();
 
     Ogre::SceneNode* node = mRootSceneNode->createChildSceneNode();
@@ -147,8 +152,4 @@ void RenderSystem::initScene() {
 
         entity->setMaterialName("BaseWite");
     }
-}
-
-void RenderSystem::loadResources() {
-    mResourceManager->loadResourcesFromConfigFile(mResourcesConfigFileName);
 }
