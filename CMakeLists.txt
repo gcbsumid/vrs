@@ -6,6 +6,10 @@ cmake_minimum_required(VERSION 2.6)
 
 project(DesignProjectApp)
 
+if(WIN32) 
+    set(CMAKE_MODULE_PATH "$ENV{OGRE_HOME}/CMake/;${CMAKE_MODULE_PATH}")
+endif(WIN32)
+
 if(UNIX) 
     if(EXISTS "/usr/local/lib/OGRE/cmake") 
         set(CMAKE_MODULE_PATH "/usr/local/lib/OGRE/cmake/;${CMAKE_MODULE_PATH}")
@@ -22,7 +26,10 @@ if (CMAKE_BUILD_TYPE STREQUAL "")
   set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
 
-set(CMAKE_CXX_FLAGS "-g -Wall -MMD -std=c++11 -pthread")
+if(UNIX) 
+    # Setting unix flags
+    set(CMAKE_CXX_FLAGS "-g -Wall -MMD -std=c++11 -pthread")
+endif(UNIX)
 
 set(CMAKE_DEBUG_POSTFIX "_d")
 
@@ -115,20 +122,80 @@ target_link_libraries(DesignProjectApp
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/media)
 
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/dist/bin)
+# post-build copy for win32
+if(WIN32 AND NOT MINGW) 
+    add_custom_command( TARGET DesignProjectApp PRE_BUILD
+        COMMAND if not exist .\\dist\\bin mkdir .\\dist\\bin )
+    add_custom_command( TARGET DesignProjectApp POST_BUILD
+        COMMAND copy \"$(TargetPath)\" .\\dist\\bin )
+endif(WIN32 AND NOT MINGW)
 
-install(TARGETS DesignProjectApp
-    RUNTIME DESTINATION bin
-    CONFIGURATIONS All
-)
+if(MINGW OR UNIX) 
+    set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/dist/bin)
+endif(MINGW OR UNIX)
 
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/dist/media
-    DESTINATION ./
-    CONFIGURATIONS Release RelWithDebInfo Debug
-)
+if(WIN32)
+    install(TARGETS DesignProjectApp
+        RUNTIME DESTINATION bin
+        CONFIGURATIONS ALL
+    )
+    install(DIRECTORY ${CMAKE_SOURCE_DIR}/dist/Media
+        DESTINATION ./
+        CONFIGURATIONS Release RelWithDebInfo Debug
+    )
+    install(FILES 
+        ${CMAKE_SOURCE_DIR}/dist/bin/plugins.cfg
+        ${CMAKE_SOURCE_DIR}/dist/bin/resources.cfg
+        DESTINATION bin
+        CONFIGURATIONS Release RelWithDebInfo
+    )
+    install(FILES 
+        ${CMAKE_SOURCE_DIR}/dist/bin/plugins_d.cfg
+        ${CMAKE_SOURCE_DIR}/dist/bin/resources_df.cfg
+        DESTINATION bin
+        CONFIGURATIONS Debug
+    )
+    install(FILES
+        ${OGRE_PLUGIN_DIR_REL}/OgreMain.dll
+        ${OGRE_PLUGIN_DIR_REL}/RenderSystem_Direct3D9.dll
+        ${OGRE_PLUGIN_DIR_REL}/RenderSystem_GL.dll
+        ${OGRE_PLUGIN_DIR_REL}/libOIS.dll
+        DESTINATION bin
+        CONFIGURATIONS Release RelWithDebInfo
+    )
+    install(FILES 
+        ${OGRE_PLUGIN_DIR_DBG}/OgreMain_d.dll
+        ${OGRE_PLUGIN_DIR_DBG}/RenderSystem_Direct3D9_d.dll
+        ${OGRE_PLUGIN_DIR_DBG}/RenderSystem_GL_d.dll
+        ${OGRE_PLUGIN_DIR_DBG}/libOIS_d.dll
+        DESTINATION bin
+        CONFIGURATIONS Debug
+    )
+    install(FILES 
+        ${Boost_DATE_TIME_LIBRARY_RELEASE}
+        ${Boost_THREAD_LIBRARY_RELEASE}
+        DESTINATION bin
+        CONFIGURATIONS Release RelWithDebInfo
+    )
+    install(FILES ${Boost_DATE_TIME_LIBRARY_DEBUG}
+        ${Boost_THREAD_LIBRARY_DEBUG}
+        DESTINATION bin
+        CONFIGURATIONS Debug
+    )
+endif(WIN32)
 
-install(FILES ${CMAKE_SOURCE_DIR}/dist/bin/plugins.cfg
-    ${CMAKE_SOURCE_DIR}/dist/bin/resources.cfg
-    DESTINATION bin
-    CONFIGURATIONS Release RelWithDebInfo Debug
-)
+if(UNIX) 
+    install(TARGETS DesignProjectApp
+        RUNTIME DESTINATION bin
+        CONFIGURATIONS All
+    )
+    install(DIRECTORY ${CMAKE_SOURCE_DIR}/dist/media
+        DESTINATION ./
+        CONFIGURATIONS Release RelWithDebInfo Debug
+    )
+    install(FILES ${CMAKE_SOURCE_DIR}/dist/bin/plugins.cfg
+        ${CMAKE_SOURCE_DIR}/dist/bin/resources.cfg
+        DESTINATION bin
+        CONFIGURATIONS Release RelWithDebInfo Debug
+    )
+endif(UNIX)

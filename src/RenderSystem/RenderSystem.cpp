@@ -88,9 +88,10 @@ void RenderSystem::processCommands() {
 }
 
 
-
 // Temp
 void RenderSystem::initScene(std::string dotSceneFilename = "") {
+    loadResources();
+    
     if (!dotSceneFilename.empty()) {
         // Todo: Implement dotScene parse
         return;
@@ -127,7 +128,6 @@ void RenderSystem::initCamera() {
 
 void RenderSystem::loadHome() {
     initCamera();
-    loadResources();
 
     Ogre::SceneNode* node = mRootSceneNode->createChildSceneNode();
     mResourceManager->loadMesh("MonsterHead.mesh", node);
