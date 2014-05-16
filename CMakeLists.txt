@@ -80,27 +80,16 @@ endif(OGRE_Terrain_FOUND)
 
 set(HDRS 
     ./src/Engine.hpp
-    ./src/Subject.hpp
-    ./src/Observer.hpp
     ./src/Events.hpp
     ./src/RenderSystem/RenderSystem.hpp
     ./src/RenderSystem/ResourceManager.hpp
-    ./src/Commands/Command.hpp
-    ./src/Commands/UpdateCommand.hpp
-    ./src/Commands/TranslateCommand.hpp
-    ./src/Commands/CreateCommand.hpp
-    ./src/Commands/DeleteCommand.hpp
 )
 
 set(SRCS
     ./src/main.cpp
     ./src/Engine.cpp
-    ./src/Subject.cpp
     ./src/RenderSystem/RenderSystem.cpp
     ./src/RenderSystem/ResourceManager.cpp
-    ./src/Commands/TranslateCommand.cpp
-    ./src/Commands/CreateCommand.cpp
-    ./src/Commands/DeleteCommand.cpp
 )
 
 include_directories( 
@@ -189,11 +178,13 @@ if(UNIX)
         RUNTIME DESTINATION bin
         CONFIGURATIONS All
     )
-    install(DIRECTORY ${CMAKE_SOURCE_DIR}/dist/media
+    install(DIRECTORY 
+        ${CMAKE_SOURCE_DIR}/dist/media
         DESTINATION ./
         CONFIGURATIONS Release RelWithDebInfo Debug
     )
-    install(FILES ${CMAKE_SOURCE_DIR}/dist/bin/plugins.cfg
+    install(FILES 
+        ${CMAKE_SOURCE_DIR}/dist/bin/plugins.cfg
         ${CMAKE_SOURCE_DIR}/dist/bin/resources.cfg
         DESTINATION bin
         CONFIGURATIONS Release RelWithDebInfo Debug

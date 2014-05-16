@@ -1,10 +1,8 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/DesignProjectApp.dir/src/main.cpp.o"
   "CMakeFiles/DesignProjectApp.dir/src/Engine.cpp.o"
-  "CMakeFiles/DesignProjectApp.dir/src/RenderSystem.cpp.o"
-  "CMakeFiles/DesignProjectApp.dir/src/ResourceManager.cpp.o"
-  "CMakeFiles/DesignProjectApp.dir/src/Subject.cpp.o"
-  "CMakeFiles/DesignProjectApp.dir/src/Entity.cpp.o"
+  "CMakeFiles/DesignProjectApp.dir/src/RenderSystem/RenderSystem.cpp.o"
+  "CMakeFiles/DesignProjectApp.dir/src/RenderSystem/ResourceManager.cpp.o"
   "dist/bin/DesignProjectApp.pdb"
   "dist/bin/DesignProjectApp"
 )

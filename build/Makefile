@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/christian/Documents/DesignProject/FYDP
+CMAKE_SOURCE_DIR = /home/christian/Documents/VRS/vrs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/christian/Documents/DesignProject/FYDP/build
+CMAKE_BINARY_DIR = /home/christian/Documents/VRS/vrs/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -113,9 +113,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/christian/Documents/DesignProject/FYDP/build/CMakeFiles /home/christian/Documents/DesignProject/FYDP/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/christian/Documents/VRS/vrs/build/CMakeFiles /home/christian/Documents/VRS/vrs/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/christian/Documents/DesignProject/FYDP/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/christian/Documents/VRS/vrs/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -179,101 +179,53 @@ src/Engine.cpp.s:
 	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/Engine.cpp.s
 .PHONY : src/Engine.cpp.s
 
-src/Entity.o: src/Entity.cpp.o
-.PHONY : src/Entity.o
+src/RenderSystem/RenderSystem.o: src/RenderSystem/RenderSystem.cpp.o
+.PHONY : src/RenderSystem/RenderSystem.o
 
 # target to build an object file
-src/Entity.cpp.o:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/Entity.cpp.o
-.PHONY : src/Entity.cpp.o
+src/RenderSystem/RenderSystem.cpp.o:
+	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/RenderSystem/RenderSystem.cpp.o
+.PHONY : src/RenderSystem/RenderSystem.cpp.o
 
-src/Entity.i: src/Entity.cpp.i
-.PHONY : src/Entity.i
+src/RenderSystem/RenderSystem.i: src/RenderSystem/RenderSystem.cpp.i
+.PHONY : src/RenderSystem/RenderSystem.i
 
 # target to preprocess a source file
-src/Entity.cpp.i:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/Entity.cpp.i
-.PHONY : src/Entity.cpp.i
+src/RenderSystem/RenderSystem.cpp.i:
+	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/RenderSystem/RenderSystem.cpp.i
+.PHONY : src/RenderSystem/RenderSystem.cpp.i
 
-src/Entity.s: src/Entity.cpp.s
-.PHONY : src/Entity.s
+src/RenderSystem/RenderSystem.s: src/RenderSystem/RenderSystem.cpp.s
+.PHONY : src/RenderSystem/RenderSystem.s
 
 # target to generate assembly for a file
-src/Entity.cpp.s:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/Entity.cpp.s
-.PHONY : src/Entity.cpp.s
+src/RenderSystem/RenderSystem.cpp.s:
+	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/RenderSystem/RenderSystem.cpp.s
+.PHONY : src/RenderSystem/RenderSystem.cpp.s
 
-src/RenderSystem.o: src/RenderSystem.cpp.o
-.PHONY : src/RenderSystem.o
+src/RenderSystem/ResourceManager.o: src/RenderSystem/ResourceManager.cpp.o
+.PHONY : src/RenderSystem/ResourceManager.o
 
 # target to build an object file
-src/RenderSystem.cpp.o:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/RenderSystem.cpp.o
-.PHONY : src/RenderSystem.cpp.o
+src/RenderSystem/ResourceManager.cpp.o:
+	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/RenderSystem/ResourceManager.cpp.o
+.PHONY : src/RenderSystem/ResourceManager.cpp.o
 
-src/RenderSystem.i: src/RenderSystem.cpp.i
-.PHONY : src/RenderSystem.i
-
-# target to preprocess a source file
-src/RenderSystem.cpp.i:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/RenderSystem.cpp.i
-.PHONY : src/RenderSystem.cpp.i
-
-src/RenderSystem.s: src/RenderSystem.cpp.s
-.PHONY : src/RenderSystem.s
-
-# target to generate assembly for a file
-src/RenderSystem.cpp.s:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/RenderSystem.cpp.s
-.PHONY : src/RenderSystem.cpp.s
-
-src/ResourceManager.o: src/ResourceManager.cpp.o
-.PHONY : src/ResourceManager.o
-
-# target to build an object file
-src/ResourceManager.cpp.o:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/ResourceManager.cpp.o
-.PHONY : src/ResourceManager.cpp.o
-
-src/ResourceManager.i: src/ResourceManager.cpp.i
-.PHONY : src/ResourceManager.i
+src/RenderSystem/ResourceManager.i: src/RenderSystem/ResourceManager.cpp.i
+.PHONY : src/RenderSystem/ResourceManager.i
 
 # target to preprocess a source file
-src/ResourceManager.cpp.i:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/ResourceManager.cpp.i
-.PHONY : src/ResourceManager.cpp.i
+src/RenderSystem/ResourceManager.cpp.i:
+	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/RenderSystem/ResourceManager.cpp.i
+.PHONY : src/RenderSystem/ResourceManager.cpp.i
 
-src/ResourceManager.s: src/ResourceManager.cpp.s
-.PHONY : src/ResourceManager.s
-
-# target to generate assembly for a file
-src/ResourceManager.cpp.s:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/ResourceManager.cpp.s
-.PHONY : src/ResourceManager.cpp.s
-
-src/Subject.o: src/Subject.cpp.o
-.PHONY : src/Subject.o
-
-# target to build an object file
-src/Subject.cpp.o:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/Subject.cpp.o
-.PHONY : src/Subject.cpp.o
-
-src/Subject.i: src/Subject.cpp.i
-.PHONY : src/Subject.i
-
-# target to preprocess a source file
-src/Subject.cpp.i:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/Subject.cpp.i
-.PHONY : src/Subject.cpp.i
-
-src/Subject.s: src/Subject.cpp.s
-.PHONY : src/Subject.s
+src/RenderSystem/ResourceManager.s: src/RenderSystem/ResourceManager.cpp.s
+.PHONY : src/RenderSystem/ResourceManager.s
 
 # target to generate assembly for a file
-src/Subject.cpp.s:
-	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/Subject.cpp.s
-.PHONY : src/Subject.cpp.s
+src/RenderSystem/ResourceManager.cpp.s:
+	$(MAKE) -f CMakeFiles/DesignProjectApp.dir/build.make CMakeFiles/DesignProjectApp.dir/src/RenderSystem/ResourceManager.cpp.s
+.PHONY : src/RenderSystem/ResourceManager.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -315,18 +267,12 @@ help:
 	@echo "... src/Engine.o"
 	@echo "... src/Engine.i"
 	@echo "... src/Engine.s"
-	@echo "... src/Entity.o"
-	@echo "... src/Entity.i"
-	@echo "... src/Entity.s"
-	@echo "... src/RenderSystem.o"
-	@echo "... src/RenderSystem.i"
-	@echo "... src/RenderSystem.s"
-	@echo "... src/ResourceManager.o"
-	@echo "... src/ResourceManager.i"
-	@echo "... src/ResourceManager.s"
-	@echo "... src/Subject.o"
-	@echo "... src/Subject.i"
-	@echo "... src/Subject.s"
+	@echo "... src/RenderSystem/RenderSystem.o"
+	@echo "... src/RenderSystem/RenderSystem.i"
+	@echo "... src/RenderSystem/RenderSystem.s"
+	@echo "... src/RenderSystem/ResourceManager.o"
+	@echo "... src/RenderSystem/ResourceManager.i"
+	@echo "... src/RenderSystem/ResourceManager.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

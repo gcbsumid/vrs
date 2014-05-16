@@ -4,12 +4,10 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/christian/Documents/DesignProject/FYDP/src/Engine.cpp" "/home/christian/Documents/DesignProject/FYDP/build/CMakeFiles/DesignProjectApp.dir/src/Engine.cpp.o"
-  "/home/christian/Documents/DesignProject/FYDP/src/Entity.cpp" "/home/christian/Documents/DesignProject/FYDP/build/CMakeFiles/DesignProjectApp.dir/src/Entity.cpp.o"
-  "/home/christian/Documents/DesignProject/FYDP/src/RenderSystem.cpp" "/home/christian/Documents/DesignProject/FYDP/build/CMakeFiles/DesignProjectApp.dir/src/RenderSystem.cpp.o"
-  "/home/christian/Documents/DesignProject/FYDP/src/ResourceManager.cpp" "/home/christian/Documents/DesignProject/FYDP/build/CMakeFiles/DesignProjectApp.dir/src/ResourceManager.cpp.o"
-  "/home/christian/Documents/DesignProject/FYDP/src/Subject.cpp" "/home/christian/Documents/DesignProject/FYDP/build/CMakeFiles/DesignProjectApp.dir/src/Subject.cpp.o"
-  "/home/christian/Documents/DesignProject/FYDP/src/main.cpp" "/home/christian/Documents/DesignProject/FYDP/build/CMakeFiles/DesignProjectApp.dir/src/main.cpp.o"
+  "/home/christian/Documents/VRS/vrs/src/Engine.cpp" "/home/christian/Documents/VRS/vrs/build/CMakeFiles/DesignProjectApp.dir/src/Engine.cpp.o"
+  "/home/christian/Documents/VRS/vrs/src/RenderSystem/RenderSystem.cpp" "/home/christian/Documents/VRS/vrs/build/CMakeFiles/DesignProjectApp.dir/src/RenderSystem/RenderSystem.cpp.o"
+  "/home/christian/Documents/VRS/vrs/src/RenderSystem/ResourceManager.cpp" "/home/christian/Documents/VRS/vrs/build/CMakeFiles/DesignProjectApp.dir/src/RenderSystem/ResourceManager.cpp.o"
+  "/home/christian/Documents/VRS/vrs/src/main.cpp" "/home/christian/Documents/VRS/vrs/build/CMakeFiles/DesignProjectApp.dir/src/main.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -26,7 +24,6 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 SET(CMAKE_C_TARGET_INCLUDE_PATH
   "/usr/include/ois"
   "/usr/local/include/OGRE"
-  "NOTFOUND"
   "/usr/local/include"
   )
 SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})

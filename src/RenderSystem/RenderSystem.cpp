@@ -1,5 +1,9 @@
 #include "RenderSystem.hpp"
 #include "OGRE/OgreSceneManager.h"
+#include "OGRE/OgreLogManager.h"
+#include "OGRE/OgreSceneNode.h"
+#include "OGRE/OgreViewport.h"
+#include "OGRE/OgreCamera.h"
 
 #include <exception>
 #include <vector>
@@ -79,17 +83,17 @@ void RenderSystem::loadResources() {
     mResourceManager->loadResourcesFromConfigFile(mResourcesConfigFileName);
 }
 
-void RenderSystem::addCommand(Command* command) {
-    // Todo: Implement
-}
+// void RenderSystem::addCommand(Command* command) {
+//     // Todo: Implement
+// }
 
-void RenderSystem::processCommands() {
-    // Todo: Implement
-}
+// void RenderSystem::processCommands() {
+//     // Todo: Implement
+// }
 
 
 // Temp
-void RenderSystem::initScene(std::string dotSceneFilename = "") {
+void RenderSystem::initScene(std::string dotSceneFilename) {
     loadResources();
     
     if (!dotSceneFilename.empty()) {
@@ -129,11 +133,20 @@ void RenderSystem::initCamera() {
 void RenderSystem::loadHome() {
     initCamera();
 
-    Ogre::SceneNode* node = mRootSceneNode->createChildSceneNode();
-    mResourceManager->loadMesh("MonsterHead.mesh", node);
-    Ogre::SceneNode* lightNode = mRootSceneNode->createChildSceneNode("sun");
-    mResourceManager->addLight(Ogre::Light::LT_DIRECTIONAL, lightNode, "sun");
+    // Creating monster head entity
+    Ogre::SceneNode* node = mRootSceneNode->createChildSceneNode("MonsterHead");
+    Ogre::Entity* mosterHeadEntity = mSceneManager->createEntity("MonsterHead.mesh");
+    node->attachObject(mosterHeadEntity);
 
+    // Creating sun
+    Ogre::SceneNode* lightNode = mRootSceneNode->createChildSceneNode("sun");
+    Ogre::Light* light = mSceneManager->createLight("sun");
+    light->setType(Ogre::Light::LT_DIRECTIONAL);
+    light->setDiffuseColour(Ogre::ColourValue::White);
+    light->setSpecularColour(Ogre::ColourValue::White);
+    lightNode->attachObject(light);
+
+    // setting the ambient light
     Ogre::ColourValue ambientLight(0.2f, 0.2f, 0.2f, 1.0f);
     mSceneManager->setAmbientLight(ambientLight);
 

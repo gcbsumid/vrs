@@ -1,5 +1,6 @@
 #include "OGRE/OgreColourValue.h"
 #include "OGRE/OgreConfigFile.h"
+#include "OGRE/OgreMaterialManager.h"
 
 #include "ResourceManager.hpp"
 
@@ -8,7 +9,7 @@ using namespace VRS;
 ResourceManager::ResourceManager(Ogre::SceneManager* sceneManager, Ogre::SceneNode* sceneRootNode) :
     mSceneManager(sceneManager),
     mSceneRootNode(sceneRootNode) {
-    mMaterialManager = Ogre::MaterialManager::getSingleton();
+    mMaterialManager = Ogre::MaterialManager::getSingletonPtr();
 }
 
 ResourceManager::~ResourceManager() {
