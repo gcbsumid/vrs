@@ -32,6 +32,7 @@ if(UNIX)
 endif(UNIX)
 
 set(CMAKE_DEBUG_POSTFIX "_d")
+set (CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/dist")
 
@@ -39,8 +40,10 @@ find_package(OpenGL REQUIRED)
 find_package(OGRE REQUIRED)
 find_package(OIS REQUIRED)
 
-# Find Boost
-if (NOT OGRE_BUILD_PLATFORM_IPHONE)
+set (BOOST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/boost")
+
+
+if (NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
     if (WIN32 OR APPLE)
         set(Boost_USE_STATIC_LIBS TRUE)
     else ()
@@ -53,22 +56,58 @@ if (NOT OGRE_BUILD_PLATFORM_IPHONE)
         # search names with "lib". This is the workaround.
         set(CMAKE_FIND_LIBRARY_PREFIXES ${CMAKE_FIND_LIBRARY_PREFIXES} "")
     endif ()
-    set(Boost_ADDITIONAL_VERSIONS "1.44" "1.44.0" "1.42" "1.42.0" "1.41.0" "1.41" "1.40.0" "1.40" "1.39.0" "1.39" "1.38.0" "1.38" "1.37.0" "1.37" )
+    set(Boost_ADDITIONAL_VERSIONS "1.54" "1.54.0" "1.53" "1.53.0" "1.52" "1.52.0" "1.51" "1.51.0" "1.50" "1.50.0" "1.49" "1.49.0" "1.48" "1.48.0" "1.47" "1.47.0" "1.46" "1.46.0" "1.45" "1.45.0" "1.44" "1.44.0" "1.42" "1.42.0" "1.41.0" "1.41" "1.40.0" "1.40")
     # Components that need linking (NB does not include header-only components like bind)
     set(OGRE_BOOST_COMPONENTS thread date_time)
-    find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS} QUIET)
+    find_package(Boost QUIET)
     if (NOT Boost_FOUND)
-        # Try again with the other type of libs
-        set(Boost_USE_STATIC_LIBS NOT ${Boost_USE_STATIC_LIBS})
+        if(Boost_USE_STATIC_LIBS)
+            set(Boost_USE_STATIC_LIBS OFF)
+        else()
+            set(Boost_USE_STATIC_LIBS ON)
+        endif()
+        find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS} QUIET)
+    endif()    
+
+    if(Boost_FOUND AND Boost_VERSION GREATER 104900)
+        set(OGRE_BOOST_COMPONENTS thread date_time system chrono)
         find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS} QUIET)
     endif()
-    find_package(Boost QUIET)
- 
+
     # Set up referencing of Boost
     include_directories(${Boost_INCLUDE_DIR})
     add_definitions(-DBOOST_ALL_NO_LIB)
-    set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${Boost_LIOGRE_Terrain_FOUNDBRARIES})
-endif()
+    set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${Boost_LIBRARIES})
+else()
+    set(BOOST_LIBRARYDIR "${CMAKE_CURRENT_SOURCE_DIR}/boost/lib")
+    set(BOOST_INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/boost/include")
+    set(Boost_USE_STATIC_LIBS TRUE)
+    set(Boost_NO_SYSTEM_PATHS TRUE)
+    set(Boost_USE_MULTITHREADED OFF)
+
+    set(Boost_ADDITIONAL_VERSIONS "1.54" "1.54.0" "1.53" "1.53.0" "1.52" "1.52.0" "1.51" "1.51.0" "1.50" "1.50.0" "1.49" "1.49.0" "1.48" "1.48.0" "1.47" "1.47.0" "1.46" "1.46.0" "1.45" "1.45.0" "1.44" "1.44.0" "1.42" "1.42.0" "1.41.0" "1.41" "1.40.0" "1.40")
+    # Components that need linking (NB does not include header-only components like bind)
+    set(OGRE_BOOST_COMPONENTS thread date_time)
+    find_package(Boost QUIET)
+    if (NOT Boost_FOUND)
+        if(Boost_USE_STATIC_LIBS)
+            set(Boost_USE_STATIC_LIBS OFF)
+        else()
+            set(Boost_USE_STATIC_LIBS ON)
+        endif()
+        find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS} QUIET)
+    endif()    
+
+    if(Boost_FOUND AND Boost_VERSION GREATER 104900)
+        set(OGRE_BOOST_COMPONENTS thread date_time system chrono)
+        find_package(Boost COMPONENTS ${OGRE_BOOST_COMPONENTS} QUIET)
+    endif()
+
+    # Set up referencing of Boost
+    include_directories(${Boost_INCLUDE_DIR})
+    add_definitions(-DBOOST_ALL_NO_LIB)
+    set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${Boost_LIBRARIES})
+endif(NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
 
 # if we need OgreTerrain
 if (OGRE_Terrain_FOUND) 
@@ -128,7 +167,7 @@ if(WIN32)
         RUNTIME DESTINATION bin
         CONFIGURATIONS ALL
     )
-    install(DIRECTORY ${CMAKE_SOURCE_DIR}/dist/Media
+    install(DIRECTORY ${CMAKE_SOURCE_DIR}/dist/media
         DESTINATION ./
         CONFIGURATIONS Release RelWithDebInfo Debug
     )
@@ -140,23 +179,35 @@ if(WIN32)
     )
     install(FILES 
         ${CMAKE_SOURCE_DIR}/dist/bin/plugins_d.cfg
-        ${CMAKE_SOURCE_DIR}/dist/bin/resources_df.cfg
+        ${CMAKE_SOURCE_DIR}/dist/bin/resources_d.cfg
         DESTINATION bin
         CONFIGURATIONS Debug
     )
+
+    message(STATUS "OGRE_PLUGIN_DIR_REL: ${OGRE_PLUGIN_DIR_REL}")
     install(FILES
         ${OGRE_PLUGIN_DIR_REL}/OgreMain.dll
         ${OGRE_PLUGIN_DIR_REL}/RenderSystem_Direct3D9.dll
         ${OGRE_PLUGIN_DIR_REL}/RenderSystem_GL.dll
-        ${OGRE_PLUGIN_DIR_REL}/libOIS.dll
+        ${OGRE_PLUGIN_DIR_REL}/Plugin_ParticleFX.dll
+        ${OGRE_PLUGIN_DIR_REL}/Plugin_CgProgramManager.dll
+        ${OGRE_PLUGIN_DIR_REL}/Plugin_OctreeSceneManager.dll
+        ${OGRE_PLUGIN_DIR_REL}/OIS.dll
+        ${OGRE_PLUGIN_DIR_REL}/cg.dll
         DESTINATION bin
         CONFIGURATIONS Release RelWithDebInfo
     )
+
+    message(STATUS "OGRE_PLUGIN_DIR_DBG: ${OGRE_PLUGIN_DIR_DBG}")
     install(FILES 
         ${OGRE_PLUGIN_DIR_DBG}/OgreMain_d.dll
         ${OGRE_PLUGIN_DIR_DBG}/RenderSystem_Direct3D9_d.dll
         ${OGRE_PLUGIN_DIR_DBG}/RenderSystem_GL_d.dll
-        ${OGRE_PLUGIN_DIR_DBG}/libOIS_d.dll
+        ${OGRE_PLUGIN_DIR_DBG}/Plugin_ParticleFX_d.dll
+        ${OGRE_PLUGIN_DIR_DBG}/Plugin_CgProgramManager_d.dll
+        ${OGRE_PLUGIN_DIR_DBG}/Plugin_OctreeSceneManager_d.dll
+        ${OGRE_PLUGIN_DIR_DBG}/OIS_d.dll
+        ${OGRE_PLUGIN_DIR_DBG}/cg.dll
         DESTINATION bin
         CONFIGURATIONS Debug
     )

@@ -9,9 +9,19 @@
 
 #include "Engine.hpp"
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#define WIN32_LEAN_AND_MEAN
+#include "windows.h"
+#endif
+
 using namespace std;
 
-int main(int argc, char* argv[]) {
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 
+INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT) 
+#else 
+int main(int argc, char* argv[]) 
+#endif
+{
     unique_ptr<VRS::Engine> engine(nullptr);
     engine = unique_ptr<VRS::Engine> (new VRS::Engine());
 
@@ -20,7 +30,11 @@ int main(int argc, char* argv[]) {
             engine->run();
         }
     } catch (exception& err) {
-        cerr << "Runtime Error: " << err.what() << endl;
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+            MessageBox( NULL, err.what(), "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
+#else
+            cerr << "Runtime Error: " << err.what() << endl;
+#endif
         return EXIT_FAILURE;
     }
 

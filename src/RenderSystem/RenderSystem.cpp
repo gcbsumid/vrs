@@ -13,8 +13,8 @@ using namespace VRS;
 
 RenderSystem::RenderSystem() :
     mRenderSystemConfigFileName(""),
-    mPluginConfigFileName("plugins.cfg"),
-    mResourcesConfigFileName("resources.cfg"),
+    mPluginConfigFileName("plugins_d.cfg"),
+    mResourcesConfigFileName("resources_d.cfg"),
     mLogFileName("renderSystem.log"),
     mWindowWidth(800),
     mWindowHeight(600),
@@ -50,7 +50,7 @@ RenderSystem::RenderSystem() :
         std::unique_ptr<ResourceManager> resMan(new ResourceManager(mSceneManager, mRootSceneNode));
         mResourceManager = std::move(resMan);
     } catch (Ogre::Exception &e) {
-        std::cout << "Ogre Exception: " << e.what() << std::endl;
+        std::cerr << "Ogre Exception: " << e.what() << std::endl;
     }
 }
 
