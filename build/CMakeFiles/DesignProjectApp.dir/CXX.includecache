@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/christian/Documents/VRS/vrs/src/Engine.cpp
-Engine.hpp
-/home/christian/Documents/VRS/vrs/src/Engine.hpp
-
 /home/christian/Documents/VRS/vrs/src/Engine.hpp
 memory
 -
@@ -52,16 +48,6 @@ memory
 queue
 -
 
-/home/christian/Documents/VRS/vrs/src/RenderSystem/ResourceManager.cpp
-OGRE/OgreColourValue.h
-/home/christian/Documents/VRS/vrs/src/RenderSystem/OGRE/OgreColourValue.h
-OGRE/OgreConfigFile.h
-/home/christian/Documents/VRS/vrs/src/RenderSystem/OGRE/OgreConfigFile.h
-OGRE/OgreMaterialManager.h
-/home/christian/Documents/VRS/vrs/src/RenderSystem/OGRE/OgreMaterialManager.h
-ResourceManager.hpp
-/home/christian/Documents/VRS/vrs/src/RenderSystem/ResourceManager.hpp
-
 /home/christian/Documents/VRS/vrs/src/RenderSystem/ResourceManager.hpp
 OGRE/OgreRoot.h
 /home/christian/Documents/VRS/vrs/src/RenderSystem/OGRE/OgreRoot.h
@@ -83,6 +69,8 @@ string
 -
 Engine.hpp
 /home/christian/Documents/VRS/vrs/src/Engine.hpp
+windows.h
+/home/christian/Documents/VRS/vrs/src/windows.h
 
 /usr/local/include/OGRE/OgreAlignedAllocator.h
 
@@ -213,20 +201,6 @@ OgreHeaderSuffix.h
 /usr/local/include/OGRE/OgreConfig.h
 OgreBuildSettings.h
 /usr/local/include/OGRE/OgreBuildSettings.h
-
-/usr/local/include/OGRE/OgreConfigFile.h
-OgrePrerequisites.h
-/usr/local/include/OGRE/OgrePrerequisites.h
-OgreCommon.h
-/usr/local/include/OGRE/OgreCommon.h
-OgreStringVector.h
-/usr/local/include/OGRE/OgreStringVector.h
-OgreIteratorWrappers.h
-/usr/local/include/OGRE/OgreIteratorWrappers.h
-OgreHeaderPrefix.h
-/usr/local/include/OGRE/OgreHeaderPrefix.h
-OgreHeaderSuffix.h
-/usr/local/include/OGRE/OgreHeaderSuffix.h
 
 /usr/local/include/OGRE/OgreConfigOptionMap.h
 OgrePrerequisites.h
@@ -525,18 +499,6 @@ OgreHeaderPrefix.h
 /usr/local/include/OGRE/OgreHeaderPrefix.h
 OgreSharedPtr.h
 /usr/local/include/OGRE/OgreSharedPtr.h
-OgreHeaderSuffix.h
-/usr/local/include/OGRE/OgreHeaderSuffix.h
-
-/usr/local/include/OGRE/OgreMaterialManager.h
-OgrePrerequisites.h
-/usr/local/include/OGRE/OgrePrerequisites.h
-OgreSingleton.h
-/usr/local/include/OGRE/OgreSingleton.h
-OgreResourceManager.h
-/usr/local/include/OGRE/OgreResourceManager.h
-OgreHeaderPrefix.h
-/usr/local/include/OGRE/OgreHeaderPrefix.h
 OgreHeaderSuffix.h
 /usr/local/include/OGRE/OgreHeaderSuffix.h
 
@@ -902,24 +864,6 @@ OgreHeaderPrefix.h
 OgreHeaderSuffix.h
 /usr/local/include/OGRE/OgreHeaderSuffix.h
 
-/usr/local/include/OGRE/OgreResourceManager.h
-OgrePrerequisites.h
-/usr/local/include/OGRE/OgrePrerequisites.h
-OgreResource.h
-/usr/local/include/OGRE/OgreResource.h
-OgreResourceGroupManager.h
-/usr/local/include/OGRE/OgreResourceGroupManager.h
-OgreCommon.h
-/usr/local/include/OGRE/OgreCommon.h
-OgreStringVector.h
-/usr/local/include/OGRE/OgreStringVector.h
-OgreScriptLoader.h
-/usr/local/include/OGRE/OgreScriptLoader.h
-OgreHeaderPrefix.h
-/usr/local/include/OGRE/OgreHeaderPrefix.h
-OgreHeaderSuffix.h
-/usr/local/include/OGRE/OgreHeaderSuffix.h
-
 /usr/local/include/OGRE/OgreRoot.h
 OgrePrerequisites.h
 /usr/local/include/OGRE/OgrePrerequisites.h
@@ -999,18 +943,6 @@ OgreSphere.h
 /usr/local/include/OGRE/OgreSphere.h
 OgreRay.h
 /usr/local/include/OGRE/OgreRay.h
-OgreHeaderPrefix.h
-/usr/local/include/OGRE/OgreHeaderPrefix.h
-OgreHeaderSuffix.h
-/usr/local/include/OGRE/OgreHeaderSuffix.h
-
-/usr/local/include/OGRE/OgreScriptLoader.h
-OgrePrerequisites.h
-/usr/local/include/OGRE/OgrePrerequisites.h
-OgreDataStream.h
-/usr/local/include/OGRE/OgreDataStream.h
-OgreStringVector.h
-/usr/local/include/OGRE/OgreStringVector.h
 OgreHeaderPrefix.h
 /usr/local/include/OGRE/OgreHeaderPrefix.h
 OgreHeaderSuffix.h

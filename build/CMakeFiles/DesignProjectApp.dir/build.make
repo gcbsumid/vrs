@@ -165,6 +165,11 @@ dist/bin/DesignProjectApp: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
 dist/bin/DesignProjectApp: /usr/lib/x86_64-linux-gnu/libboost_system.so
 dist/bin/DesignProjectApp: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
 dist/bin/DesignProjectApp: /usr/lib/x86_64-linux-gnu/libpthread.so
+dist/bin/DesignProjectApp: /usr/lib/x86_64-linux-gnu/libboost_thread.so
+dist/bin/DesignProjectApp: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
+dist/bin/DesignProjectApp: /usr/lib/x86_64-linux-gnu/libboost_system.so
+dist/bin/DesignProjectApp: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
+dist/bin/DesignProjectApp: /usr/lib/x86_64-linux-gnu/libpthread.so
 dist/bin/DesignProjectApp: /usr/local/lib/libOgreTerrain.so
 dist/bin/DesignProjectApp: /usr/lib/x86_64-linux-gnu/libOIS.so
 dist/bin/DesignProjectApp: CMakeFiles/DesignProjectApp.dir/link.txt

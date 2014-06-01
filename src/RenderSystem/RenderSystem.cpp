@@ -13,8 +13,14 @@ using namespace VRS;
 
 RenderSystem::RenderSystem() :
     mRenderSystemConfigFileName(""),
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 
     mPluginConfigFileName("plugins_d.cfg"),
     mResourcesConfigFileName("resources_d.cfg"),
+#else
+    mPluginConfigFileName("plugins.cfg"),
+    mResourcesConfigFileName("resources.cfg"),
+#endif
     mLogFileName("renderSystem.log"),
     mWindowWidth(800),
     mWindowHeight(600),
