@@ -123,6 +123,7 @@ set(HDRS
     ./src/RenderSystem/RenderSystem.hpp
     ./src/RenderSystem/ResourceManager.hpp
     ./src/RenderSystem/InputManager.hpp
+    ./src/RenderSystem/BaseListener.hpp
 )
 
 set(SRCS
@@ -131,6 +132,7 @@ set(SRCS
     ./src/RenderSystem/RenderSystem.cpp
     ./src/RenderSystem/ResourceManager.cpp
     ./src/RenderSystem/InputManager.cpp
+    ./src/RenderSystem/BaseListener.cpp
 )
 
 include_directories( 

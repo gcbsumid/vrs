@@ -1,25 +1,26 @@
 #include "InputManager.hpp"
+#include <iostream>
 
 InputManager::InputManager() 
-    : mMouse(0)
-    , mKeyboard(0)
-    , mInputSystem(0) 
+    : mMouse(nullptr)
+    , mKeyboard(nullptr)
+    , mInputSystem(nullptr) 
     {}
 
 InputManager::~InputManager() {
     if (mInputSystem) {
         if (mMouse) {
             mInputSystem->destroyInputObject(mMouse);
-            mMouse = 0;
+            mMouse = nullptr;
         }
 
         if (mKeyboard) {
             mInputSystem->destroyInputObject(mKeyboard);
-            mKeyboard = 0;
+            mKeyboard = nullptr;
         }
         
         mInputSystem->destroyInputSystem(mInputSystem);
-        mInputSystem = 0;
+        mInputSystem = nullptr;
 
         // Clear Listeners
         mKeyListeners.clear();
@@ -77,7 +78,7 @@ void InputManager::capture( void ) {
     }
 }
 
-void InputManager::addKeyListener(OIS::KeyListener *keyListener, const std::string& name) {
+void InputManager::addKeyListener(OIS::KeyListener *keyListener, const std::string name) {
     if (mKeyboard) {
         // Check for duplicate items
         if (mKeyListeners.count(name) == 0) {
@@ -86,7 +87,7 @@ void InputManager::addKeyListener(OIS::KeyListener *keyListener, const std::stri
     }
 }
  
-void InputManager::addMouseListener(OIS::MouseListener *mouseListener, const std::string& name) {
+void InputManager::addMouseListener(OIS::MouseListener *mouseListener, const std::string name) {
     if (mMouse) {
         // Check for duplicate items
         if (mMouseListeners.count(name) == 0) {
@@ -95,7 +96,7 @@ void InputManager::addMouseListener(OIS::MouseListener *mouseListener, const std
     }
 }
  
-void InputManager::removeKeyListener(const std::string& name) {
+void InputManager::removeKeyListener(const std::string name) {
     // Check if item exists
     auto itKeyListener = mKeyListeners.find(name);
     if (itKeyListener != mKeyListeners.end()) {
@@ -103,7 +104,7 @@ void InputManager::removeKeyListener(const std::string& name) {
     }
 }
  
-void InputManager::removeMouseListener(const std::string& name) {
+void InputManager::removeMouseListener(const std::string name) {
     // Check if item exists
     auto itMouseListener = mMouseListeners.find(name);
     if (itMouseListener != mMouseListeners.end()) {
@@ -132,6 +133,7 @@ void InputManager::setWindowExtents( int width, int height ) {
 }
 
 bool InputManager::keyPressed( const OIS::KeyEvent &e ) {
+    std::cout << "Trigger keyboard press!\n";
     for (auto& iter : mKeyListeners) {
         if (!iter.second->keyPressed(e)) {
             break;

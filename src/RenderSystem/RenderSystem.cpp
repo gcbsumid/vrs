@@ -22,6 +22,8 @@ RenderSystem::RenderSystem() :
     mResourcesConfigFileName("resources.cfg"),
 #endif
     mLogFileName("renderSystem.log"),
+    mResourceManager(new ResourceManager()),
+    mInputManager(new InputManager()),
     mWindowWidth(800),
     mWindowHeight(600),
     mFullScreen(false) {
@@ -53,8 +55,10 @@ RenderSystem::RenderSystem() :
         mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "SceneManager");
         mRootSceneNode = mSceneManager->getRootSceneNode();
 
-        std::unique_ptr<ResourceManager> resMan(new ResourceManager(mSceneManager, mRootSceneNode));
-        mResourceManager = std::move(resMan);
+        mResourceManager->initialise(mSceneManager, mRootSceneNode);
+        mInputManager->initialise(mWindow);
+        mInputManager->addKeyListener(&mInputListener, "temp base");
+        mInputManager->addMouseListener(&mInputListener, "temp base");
     } catch (Ogre::Exception &e) {
         std::cerr << "Ogre Exception: " << e.what() << std::endl;
     }
@@ -63,26 +67,29 @@ RenderSystem::RenderSystem() :
 RenderSystem::~RenderSystem() {
 }
 
-void RenderSystem::run() {
+void RenderSystem::clearEventTimes() {
     // Clears OS messages (e.g. Input messages)
     mRoot->clearEventTimes();
+}
 
-    try {
-        Ogre::SceneNode* lightNode = mSceneManager->getSceneNode("sun");
-        while (!mWindow->isClosed()) {
-            Ogre::Degree angle(2.5);
-            lightNode->yaw(angle);
+bool RenderSystem::isWindowClosed() {
+    return (mWindow->isClosed() || mInputListener.isShutDown());
+}
 
-            mWindow->update(false);
-            mWindow->swapBuffers();
-            mRoot->renderOneFrame();
-            Ogre::WindowEventUtilities::messagePump();
-        }
+void RenderSystem::logMessage(std::string msg) {    
+    Ogre::LogManager::getSingleton().logMessage(msg);
+}
 
-        Ogre::LogManager::getSingleton().logMessage("endOfProgram");
-    } catch (Ogre::Exception &e) {
-        std::cout << "Ogre Exception: " << e.what() << std::endl;
-    }
+void RenderSystem::run() {
+    mInputManager->capture();
+    Ogre::SceneNode* lightNode = mSceneManager->getSceneNode("sun");
+    Ogre::Degree angle(2.5);
+    lightNode->yaw(angle);
+
+    mWindow->update(false);
+    mWindow->swapBuffers();
+    mRoot->renderOneFrame();
+    Ogre::WindowEventUtilities::messagePump();
 }
 
 void RenderSystem::loadResources() {

@@ -16,11 +16,11 @@ public:
     void initialise(Ogre::RenderWindow *renderWindow);
     void capture();
 
-    void addKeyListener(OIS::KeyListener *keyListener, const std::string& name);
-    void addMouseListener(OIS::MouseListener *mouseListener, const std::string& name);
+    void addKeyListener(OIS::KeyListener *keyListener, const std::string name);
+    void addMouseListener(OIS::MouseListener *mouseListener, const std::string name);
 
-    void removeKeyListener(const std::string& name);
-    void removeMouseListener(const std::string& name);
+    void removeKeyListener(const std::string name);
+    void removeMouseListener(const std::string name);
 
     void removeAllListeners();
     void removeAllKeyListeners();
