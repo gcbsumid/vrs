@@ -1,1 +1,0 @@
-/home/christian/Documents/VRS/vrs/build/CMakeFiles/DesignProjectApp.dir

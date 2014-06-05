@@ -5,7 +5,6 @@
 
 #include "RenderSystem/RenderSystem.hpp"
 // #include "SystemLoader.hpp"
-// #include "ResourceManager.hpp"
 
 namespace VRS {
     class Engine {
@@ -18,7 +17,6 @@ namespace VRS {
     private:
         std::unique_ptr<RenderSystem> mRenderSystem;
         // std::shared_ptr<SystemLoader> mLoader;
-        // std::shared_ptr<ResourceManager> mResourceManager;
     };
 }
 

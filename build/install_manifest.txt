@@ -1,3 +1,0 @@
-/home/christian/Documents/VRS/vrs/build/dist/.//media/meshes/MonsterHead.mesh
-/home/christian/Documents/VRS/vrs/build/dist/bin/plugins.cfg
-/home/christian/Documents/VRS/vrs/build/dist/bin/resources.cfg
