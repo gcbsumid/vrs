@@ -7,6 +7,7 @@
 #include "OGRE/OgreWindowEventUtilities.h"
 
 #include "ResourceManager.hpp"
+#include "InputManager.hpp"
 // #include "../Commands/Command.hpp"
 
 #include <memory>

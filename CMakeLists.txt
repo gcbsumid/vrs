@@ -122,6 +122,7 @@ set(HDRS
     ./src/Events.hpp
     ./src/RenderSystem/RenderSystem.hpp
     ./src/RenderSystem/ResourceManager.hpp
+    ./src/RenderSystem/InputManager.hpp
 )
 
 set(SRCS
@@ -129,6 +130,7 @@ set(SRCS
     ./src/Engine.cpp
     ./src/RenderSystem/RenderSystem.cpp
     ./src/RenderSystem/ResourceManager.cpp
+    ./src/RenderSystem/InputManager.cpp
 )
 
 include_directories( 
