@@ -1,26 +1,26 @@
-#include "InputManager.hpp"
+#include "InputSystem.hpp"
 #include <iostream>
 
-InputManager::InputManager() 
+InputSystem::InputSystem() 
     : mMouse(nullptr)
     , mKeyboard(nullptr)
-    , mInputSystem(nullptr) 
+    , mOgreInputSystem(nullptr) 
     {}
 
-InputManager::~InputManager() {
-    if (mInputSystem) {
+InputSystem::~InputSystem() {
+    if (mOgreInputSystem) {
         if (mMouse) {
-            mInputSystem->destroyInputObject(mMouse);
+            mOgreInputSystem->destroyInputObject(mMouse);
             mMouse = nullptr;
         }
 
         if (mKeyboard) {
-            mInputSystem->destroyInputObject(mKeyboard);
+            mOgreInputSystem->destroyInputObject(mKeyboard);
             mKeyboard = nullptr;
         }
         
-        mInputSystem->destroyInputSystem(mInputSystem);
-        mInputSystem = nullptr;
+        mOgreInputSystem->destroyInputSystem(mOgreInputSystem);
+        mOgreInputSystem = nullptr;
 
         // Clear Listeners
         mKeyListeners.clear();
@@ -28,8 +28,8 @@ InputManager::~InputManager() {
     }
 }
 
-void InputManager::initialise(Ogre::RenderWindow *renderWindow) {
-    if (!mInputSystem) {
+void InputSystem::initialise(Ogre::RenderWindow *renderWindow) {
+    if (!mOgreInputSystem) {
         // Setup of basic variables
         OIS::ParamList paramList;
         size_t windowHnd = 0;
@@ -43,17 +43,17 @@ void InputManager::initialise(Ogre::RenderWindow *renderWindow) {
         paramList.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
         // Create Input System
-        mInputSystem = OIS::InputManager::createInputSystem(paramList);
+        mOgreInputSystem = OIS::InputManager::createInputSystem(paramList);
 
         // create a buffered keyboard
-        if (mInputSystem->getNumberOfDevices(OIS::OISKeyboard) > 0) {
-            mKeyboard = static_cast<OIS::Keyboard*>(mInputSystem->createInputObject(OIS::OISKeyboard, true));
+        if (mOgreInputSystem->getNumberOfDevices(OIS::OISKeyboard) > 0) {
+            mKeyboard = static_cast<OIS::Keyboard*>(mOgreInputSystem->createInputObject(OIS::OISKeyboard, true));
             mKeyboard->setEventCallback(this);
         }
 
         // create a buffered mouse
-        if (mInputSystem->getNumberOfDevices(OIS::OISMouse) > 0) {
-            mMouse = static_cast<OIS::Mouse*>(mInputSystem->createInputObject( OIS::OISMouse, true));
+        if (mOgreInputSystem->getNumberOfDevices(OIS::OISMouse) > 0) {
+            mMouse = static_cast<OIS::Mouse*>(mOgreInputSystem->createInputObject( OIS::OISMouse, true));
             mMouse->setEventCallback(this);
  
             // Get window size
@@ -67,7 +67,7 @@ void InputManager::initialise(Ogre::RenderWindow *renderWindow) {
     }
 }
 
-void InputManager::capture( void ) {
+void InputSystem::capture( void ) {
     // Need to capture / update each device every frame
     if (mMouse) {
         mMouse->capture();
@@ -78,7 +78,7 @@ void InputManager::capture( void ) {
     }
 }
 
-void InputManager::addKeyListener(OIS::KeyListener *keyListener, const std::string name) {
+void InputSystem::addKeyListener(OIS::KeyListener *keyListener, const std::string name) {
     if (mKeyboard) {
         // Check for duplicate items
         if (mKeyListeners.count(name) == 0) {
@@ -87,7 +87,7 @@ void InputManager::addKeyListener(OIS::KeyListener *keyListener, const std::stri
     }
 }
  
-void InputManager::addMouseListener(OIS::MouseListener *mouseListener, const std::string name) {
+void InputSystem::addMouseListener(OIS::MouseListener *mouseListener, const std::string name) {
     if (mMouse) {
         // Check for duplicate items
         if (mMouseListeners.count(name) == 0) {
@@ -96,7 +96,7 @@ void InputManager::addMouseListener(OIS::MouseListener *mouseListener, const std
     }
 }
  
-void InputManager::removeKeyListener(const std::string name) {
+void InputSystem::removeKeyListener(const std::string name) {
     // Check if item exists
     auto itKeyListener = mKeyListeners.find(name);
     if (itKeyListener != mKeyListeners.end()) {
@@ -104,7 +104,7 @@ void InputManager::removeKeyListener(const std::string name) {
     }
 }
  
-void InputManager::removeMouseListener(const std::string name) {
+void InputSystem::removeMouseListener(const std::string name) {
     // Check if item exists
     auto itMouseListener = mMouseListeners.find(name);
     if (itMouseListener != mMouseListeners.end()) {
@@ -112,27 +112,27 @@ void InputManager::removeMouseListener(const std::string name) {
     }
 }
  
-void InputManager::removeAllListeners( void ) {
+void InputSystem::removeAllListeners( void ) {
     mKeyListeners.clear();
     mMouseListeners.clear();
 }
  
-void InputManager::removeAllKeyListeners( void ) {
+void InputSystem::removeAllKeyListeners( void ) {
     mKeyListeners.clear();
 }
  
-void InputManager::removeAllMouseListeners( void ) {
+void InputSystem::removeAllMouseListeners( void ) {
     mMouseListeners.clear();
 }
 
-void InputManager::setWindowExtents( int width, int height ) {
+void InputSystem::setWindowExtents( int width, int height ) {
     // Set mouse region (if window resizes, we should alter this to reflect as well)
     const OIS::MouseState &mouseState = mMouse->getMouseState();
     mouseState.width  = width;
     mouseState.height = height;
 }
 
-bool InputManager::keyPressed( const OIS::KeyEvent &e ) {
+bool InputSystem::keyPressed( const OIS::KeyEvent &e ) {
     std::cout << "Trigger keyboard press!\n";
     for (auto& iter : mKeyListeners) {
         if (!iter.second->keyPressed(e)) {
@@ -143,7 +143,7 @@ bool InputManager::keyPressed( const OIS::KeyEvent &e ) {
     return true;
 }
  
-bool InputManager::keyReleased( const OIS::KeyEvent &e ) {
+bool InputSystem::keyReleased( const OIS::KeyEvent &e ) {
     for (auto& iter : mKeyListeners) {
         if (!iter.second->keyReleased(e)) {
             break;
@@ -153,7 +153,7 @@ bool InputManager::keyReleased( const OIS::KeyEvent &e ) {
     return true;
 }
  
-bool InputManager::mouseMoved( const OIS::MouseEvent &e ) {
+bool InputSystem::mouseMoved( const OIS::MouseEvent &e ) {
     for (auto& iter : mMouseListeners) {
         if (!iter.second->mouseMoved(e)) {
             break;
@@ -163,7 +163,7 @@ bool InputManager::mouseMoved( const OIS::MouseEvent &e ) {
     return true;
 }
  
-bool InputManager::mousePressed( const OIS::MouseEvent &e, OIS::MouseButtonID id ) {
+bool InputSystem::mousePressed( const OIS::MouseEvent &e, OIS::MouseButtonID id ) {
     for (auto& iter : mMouseListeners) {
         if (!iter.second->mousePressed(e, id)) {
             break;
@@ -173,7 +173,7 @@ bool InputManager::mousePressed( const OIS::MouseEvent &e, OIS::MouseButtonID id
     return true;
 }
 
-bool InputManager::mouseReleased( const OIS::MouseEvent &e, OIS::MouseButtonID id ) {
+bool InputSystem::mouseReleased( const OIS::MouseEvent &e, OIS::MouseButtonID id ) {
     for (auto& iter : mMouseListeners) {
         if (!iter.second->mouseReleased(e, id)) {
             break;

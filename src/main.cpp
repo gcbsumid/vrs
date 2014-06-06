@@ -26,6 +26,7 @@ int main(int argc, char* argv[])
     engine = unique_ptr<VRS::Engine> (new VRS::Engine());
 
     try {
+        engine->initialise();
         if (engine) {
             engine->run();
         }

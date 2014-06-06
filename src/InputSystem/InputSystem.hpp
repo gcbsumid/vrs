@@ -8,10 +8,10 @@
 
 #include <OgreRenderWindow.h>
 
-class InputManager : public OIS::KeyListener, public OIS::MouseListener {
+class InputSystem : public OIS::KeyListener, public OIS::MouseListener {
 public:
-    InputManager();
-    virtual ~InputManager();
+    InputSystem();
+    virtual ~InputSystem();
 
     void initialise(Ogre::RenderWindow *renderWindow);
     void capture();
@@ -29,8 +29,8 @@ public:
     void setWindowExtents( int width, int height );
 
 private:
-    InputManager(const InputManager&) {}
-    InputManager& operator=(const InputManager&);
+    InputSystem(const InputSystem&) {}
+    InputSystem& operator=(const InputSystem&);
 
     bool keyPressed(const OIS::KeyEvent &e);
     bool keyReleased(const OIS::KeyEvent &e);
@@ -41,7 +41,7 @@ private:
 
     OIS::Mouse        *mMouse;
     OIS::Keyboard     *mKeyboard;
-    OIS::InputManager *mInputSystem;
+    OIS::InputManager *mOgreInputSystem;
 
     std::map<std::string, OIS::KeyListener*> mKeyListeners;
     std::map<std::string, OIS::MouseListener*> mMouseListeners;

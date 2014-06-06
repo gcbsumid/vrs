@@ -119,11 +119,10 @@ endif(OGRE_Terrain_FOUND)
 
 set(HDRS 
     ./src/Engine.hpp
-    ./src/Events.hpp
     ./src/RenderSystem/RenderSystem.hpp
     ./src/RenderSystem/ResourceManager.hpp
-    ./src/RenderSystem/InputManager.hpp
-    ./src/RenderSystem/BaseListener.hpp
+    ./src/InputSystem/InputSystem.hpp
+    ./src/InputSystem/BaseListener.hpp
 )
 
 set(SRCS
@@ -131,8 +130,8 @@ set(SRCS
     ./src/Engine.cpp
     ./src/RenderSystem/RenderSystem.cpp
     ./src/RenderSystem/ResourceManager.cpp
-    ./src/RenderSystem/InputManager.cpp
-    ./src/RenderSystem/BaseListener.cpp
+    ./src/InputSystem/InputSystem.cpp
+    ./src/InputSystem/BaseListener.cpp
 )
 
 include_directories( 
