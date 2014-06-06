@@ -3,20 +3,30 @@
 
 using namespace VRS;
 
-Engine::Engine() {
-    std::unique_ptr<RenderSystem> renderSystem(new RenderSystem());
-    mRenderSystem = std::move(renderSystem);
+Engine::Engine() 
+    : mRenderSystem(new RenderSystem) 
+    , mInputSystem(new InputSystem)
+{
+
 }
 
 Engine::~Engine() {
 
 }
 
-void Engine::run() {
-    mRenderSystem->initScene();
+void Engine::initialise() {
+    mRenderSystem->initialise();
+    mInputSystem->initialise(mRenderSystem->getRenderWindow());
+    mInputSystem->addKeyListener(&mInputListener, "temp base");
+    mInputSystem->addMouseListener(&mInputListener, "temp base");
 
+    mRenderSystem->initScene();
+}
+
+void Engine::run() {
     try {
-        while (!mRenderSystem->isWindowClosed()) {
+        while (!mRenderSystem->isWindowClosed() && !mInputListener.isShutDown()) {
+            mInputSystem->capture();
             mRenderSystem->run();
         }
         mRenderSystem->logMessage("endOfProgram");

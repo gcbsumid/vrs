@@ -23,11 +23,33 @@ RenderSystem::RenderSystem() :
 #endif
     mLogFileName("renderSystem.log"),
     mResourceManager(new ResourceManager()),
-    mInputManager(new InputManager()),
     mWindowWidth(800),
     mWindowHeight(600),
     mFullScreen(false) {
 
+}
+
+RenderSystem::~RenderSystem() {
+
+}
+
+void RenderSystem::run() {
+    // mInputManager->capture();
+    Ogre::SceneNode* lightNode = mSceneManager->getSceneNode("sun");
+    Ogre::Degree angle(2.5);
+    lightNode->yaw(angle);
+
+    mWindow->update(false);
+    mWindow->swapBuffers();
+    mRoot->renderOneFrame();
+    Ogre::WindowEventUtilities::messagePump();
+}
+
+void RenderSystem::loadResources() {
+    mResourceManager->loadResourcesFromConfigFile(mResourcesConfigFileName);
+}
+
+void RenderSystem::initialise() {
     try {
         // Create the Ogre root object
         std::cerr << "mPlugin: " << mPluginConfigFileName << std::endl;
@@ -55,45 +77,12 @@ RenderSystem::RenderSystem() :
         mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "SceneManager");
         mRootSceneNode = mSceneManager->getRootSceneNode();
 
+        // Resource Manager
         mResourceManager->initialise(mSceneManager, mRootSceneNode);
-        mInputManager->initialise(mWindow);
-        mInputManager->addKeyListener(&mInputListener, "temp base");
-        mInputManager->addMouseListener(&mInputListener, "temp base");
+
     } catch (Ogre::Exception &e) {
         std::cerr << "Ogre Exception: " << e.what() << std::endl;
     }
-}
-
-RenderSystem::~RenderSystem() {
-}
-
-void RenderSystem::clearEventTimes() {
-    // Clears OS messages (e.g. Input messages)
-    mRoot->clearEventTimes();
-}
-
-bool RenderSystem::isWindowClosed() {
-    return (mWindow->isClosed() || mInputListener.isShutDown());
-}
-
-void RenderSystem::logMessage(std::string msg) {    
-    Ogre::LogManager::getSingleton().logMessage(msg);
-}
-
-void RenderSystem::run() {
-    mInputManager->capture();
-    Ogre::SceneNode* lightNode = mSceneManager->getSceneNode("sun");
-    Ogre::Degree angle(2.5);
-    lightNode->yaw(angle);
-
-    mWindow->update(false);
-    mWindow->swapBuffers();
-    mRoot->renderOneFrame();
-    Ogre::WindowEventUtilities::messagePump();
-}
-
-void RenderSystem::loadResources() {
-    mResourceManager->loadResourcesFromConfigFile(mResourcesConfigFileName);
 }
 
 // void RenderSystem::addCommand(Command* command) {
@@ -178,4 +167,21 @@ void RenderSystem::loadHome() {
 
         entity->setMaterialName("BaseWite");
     }
+}
+
+Ogre::RenderWindow* RenderSystem::getRenderWindow() {
+    return mWindow;
+}
+
+void RenderSystem::clearEventTimes() {
+    // Clears OS messages (e.g. Input messages)
+    mRoot->clearEventTimes();
+}
+
+bool RenderSystem::isWindowClosed() {
+    return mWindow->isClosed();
+}
+
+void RenderSystem::logMessage(std::string msg) {    
+    Ogre::LogManager::getSingleton().logMessage(msg);
 }

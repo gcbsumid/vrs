@@ -4,7 +4,10 @@
 #include <memory>
 
 #include "RenderSystem/RenderSystem.hpp"
-// #include "SystemLoader.hpp"
+#include "InputSystem/InputSystem.hpp"
+
+// Temp
+#include "InputSystem/BaseListener.hpp"
 
 namespace VRS {
     class Engine {
@@ -12,11 +15,15 @@ namespace VRS {
         Engine();
         ~Engine();
 
+        void initialise();
         void run();
 
     private:
         std::unique_ptr<RenderSystem> mRenderSystem;
-        // std::shared_ptr<SystemLoader> mLoader;
+        std::shared_ptr<InputSystem> mInputSystem;
+
+        // Temp
+        BaseListener mInputListener;
     };
 }
 

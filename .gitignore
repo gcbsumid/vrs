@@ -1,4 +1,10 @@
+# Object files
 *.o
 *.d
+
+# Build files
 build/
 build-win/
+
+# ctags 
+*.tags*

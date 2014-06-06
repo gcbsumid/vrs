@@ -7,10 +7,7 @@
 #include "OGRE/OgreWindowEventUtilities.h"
 
 #include "ResourceManager.hpp"
-#include "InputManager.hpp"
 // #include "../Commands/Command.hpp"
-
-#include "BaseListener.hpp"
 
 #include <memory>
 #include <queue>
@@ -20,6 +17,7 @@ namespace VRS {
     class IRenderSystem {
     public:
         virtual ~IRenderSystem() {}  
+        virtual Ogre::RenderWindow* getRenderWindow() = 0;
         // virtual void addCommand(Command*) = 0;
     };
 
@@ -31,6 +29,7 @@ namespace VRS {
 
         // void addCommand(Command* command);
         void loadResources();
+        void initialise();
         void run();
 
         void clearEventTimes();
@@ -38,6 +37,9 @@ namespace VRS {
         void logMessage(std::string msg);
 
         void initScene(std::string dotSceneFilename = "");
+
+        // public interface
+        virtual Ogre::RenderWindow* getRenderWindow();
 
     private:
         void loadHome();
@@ -66,14 +68,11 @@ namespace VRS {
         Ogre::SceneNode* mRootSceneNode;
 
         std::shared_ptr<ResourceManager> mResourceManager;
-        std::shared_ptr<InputManager> mInputManager;
 
         // Window Parameters
         unsigned int mWindowWidth;
         unsigned int mWindowHeight;
         bool mFullScreen;
-
-        BaseListener mInputListener;
 
         // std::Queue<Command*> mCommands;
     };    
