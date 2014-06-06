@@ -6,14 +6,19 @@
 
 using namespace VRS;
 
-ResourceManager::ResourceManager(Ogre::SceneManager* sceneManager, Ogre::SceneNode* sceneRootNode) :
-    mSceneManager(sceneManager),
-    mSceneRootNode(sceneRootNode) {
+ResourceManager::ResourceManager() :
+    mSceneManager(nullptr),
+    mSceneRootNode(nullptr) {
     mMaterialManager = Ogre::MaterialManager::getSingletonPtr();
 }
 
 ResourceManager::~ResourceManager() {
 
+}
+
+void ResourceManager::initialise(Ogre::SceneManager* sceneManager, Ogre::SceneNode* sceneRootNode) {
+    mSceneManager = sceneManager;
+    mSceneRootNode = sceneRootNode;
 }
 
 void ResourceManager::loadResourcesFromDirectory(std::string resourceGroupName, std::string dirName) {

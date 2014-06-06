@@ -15,9 +15,10 @@ namespace VRS {
 
     class ResourceManager : public IResourceManager {
     public:
-        ResourceManager(Ogre::SceneManager* sceneManager, Ogre::SceneNode* sceneRootNode);
+        ResourceManager();
         ~ResourceManager();
 
+        void initialise(Ogre::SceneManager* sceneManager, Ogre::SceneNode* sceneRootNode);
         void loadResourcesFromConfigFile(std::string resourcesCfg);
         void loadResourcesFromDirectory(std::string resourceGroupName, std::string dirName);
 
