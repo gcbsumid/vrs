@@ -119,8 +119,12 @@ endif(OGRE_Terrain_FOUND)
 
 set(HDRS 
     ./src/Engine.hpp
+    ./src/EntitySystem/Entity.hpp
+    ./src/EntitySystem/Component.hpp
+    ./src/EntitySystem/PlayerEntity.hpp
     ./src/RenderSystem/RenderSystem.hpp
     ./src/RenderSystem/ResourceManager.hpp
+    ./src/RenderSystem/Components/CameraComponent.hpp
     ./src/InputSystem/InputSystem.hpp
     ./src/InputSystem/BaseListener.hpp
 )
@@ -128,8 +132,10 @@ set(HDRS
 set(SRCS
     ./src/main.cpp
     ./src/Engine.cpp
+    ./src/EntitySystem/PlayerEntity.cpp
     ./src/RenderSystem/RenderSystem.cpp
     ./src/RenderSystem/ResourceManager.cpp
+    ./src/RenderSystem/Components/CameraComponent.cpp
     ./src/InputSystem/InputSystem.cpp
     ./src/InputSystem/BaseListener.cpp
 )

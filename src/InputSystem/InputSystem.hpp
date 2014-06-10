@@ -8,12 +8,15 @@
 
 #include <OgreRenderWindow.h>
 
+// Todo: Create Interface
+// Todo: create createComponent
+
 class InputSystem : public OIS::KeyListener, public OIS::MouseListener {
 public:
     InputSystem();
     virtual ~InputSystem();
 
-    void initialise(Ogre::RenderWindow *renderWindow);
+    void initialize(Ogre::RenderWindow *renderWindow);
     void capture();
 
     void addKeyListener(OIS::KeyListener *keyListener, const std::string name);

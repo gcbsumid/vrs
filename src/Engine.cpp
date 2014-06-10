@@ -14,9 +14,9 @@ Engine::~Engine() {
 
 }
 
-void Engine::initialise() {
-    mRenderSystem->initialise();
-    mInputSystem->initialise(mRenderSystem->getRenderWindow());
+void Engine::initialize() {
+    mRenderSystem->initialize();
+    mInputSystem->initialize(mRenderSystem->getRenderWindow());
     mInputSystem->addKeyListener(&mInputListener, "temp base");
     mInputSystem->addMouseListener(&mInputListener, "temp base");
 

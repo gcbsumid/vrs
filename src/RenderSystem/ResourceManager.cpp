@@ -16,7 +16,7 @@ ResourceManager::~ResourceManager() {
 
 }
 
-void ResourceManager::initialise(Ogre::SceneManager* sceneManager, Ogre::SceneNode* sceneRootNode) {
+void ResourceManager::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* sceneRootNode) {
     mSceneManager = sceneManager;
     mSceneRootNode = sceneRootNode;
 }

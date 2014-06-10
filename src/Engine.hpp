@@ -15,7 +15,7 @@ namespace VRS {
         Engine();
         ~Engine();
 
-        void initialise();
+        void initialize();
         void run();
 
     private:

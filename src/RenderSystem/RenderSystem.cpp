@@ -49,7 +49,7 @@ void RenderSystem::loadResources() {
     mResourceManager->loadResourcesFromConfigFile(mResourcesConfigFileName);
 }
 
-void RenderSystem::initialise() {
+void RenderSystem::initialize() {
     try {
         // Create the Ogre root object
         std::cerr << "mPlugin: " << mPluginConfigFileName << std::endl;
@@ -63,7 +63,7 @@ void RenderSystem::initialise() {
         }
         mRoot->setRenderSystem(mRenderSystemList[0]); 
 
-        // initialise([create window automatically], [window name], [custom capabilities])
+        // initialize([create window automatically], [window name], [custom capabilities])
         mRoot->initialise(false, "Browser", "");
 
         Ogre::NameValuePairList mRenderingParams;
@@ -78,7 +78,7 @@ void RenderSystem::initialise() {
         mRootSceneNode = mSceneManager->getRootSceneNode();
 
         // Resource Manager
-        mResourceManager->initialise(mSceneManager, mRootSceneNode);
+        mResourceManager->initialize(mSceneManager, mRootSceneNode);
 
     } catch (Ogre::Exception &e) {
         std::cerr << "Ogre Exception: " << e.what() << std::endl;
@@ -102,7 +102,7 @@ void RenderSystem::initScene(std::string dotSceneFilename) {
         // Todo: Implement dotScene parse
         return;
     }
-    loadHome();
+    loadScene();
 }
 
 void RenderSystem::initCamera() {
@@ -112,10 +112,10 @@ void RenderSystem::initCamera() {
     cameraNode->attachObject(camera);
 
     // Create Viewport 
-    float viewportWidth = 0.88f;
-    float viewportHeight = 0.88f;
-    float viewportLeft = (1.0 - viewportWidth) * 0.5f;
-    float viewportTop = (1.0 - viewportHeight) * 0.5f;
+    float viewportWidth = 1.0f;
+    float viewportHeight = 1.0f;
+    float viewportLeft = 0.0f;
+    float viewportTop = 0.0f;
 
     unsigned short mainViewportZOrder = 100;
     Ogre::Viewport* viewport = mWindow->addViewport(camera, mainViewportZOrder, viewportLeft, viewportTop, viewportWidth, viewportHeight);
@@ -125,48 +125,68 @@ void RenderSystem::initCamera() {
     // Camera Settings
     float ratio = float(viewport->getActualWidth()) / float(viewport->getActualHeight());
     camera->setAspectRatio(ratio);
-    camera->setNearClipDistance(1.5f);
-    camera->setFarClipDistance(3000.0f);
+    camera->setPosition(Ogre::Vector3(1683, 50, 2116));
+    camera->lookAt(Ogre::Vector3(1963, 50, 1660));
+    camera->setNearClipDistance(0.1f);
+    if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE)) {
+        // enable infinite far clip distance if we can
+        camera->setFarClipDistance(0);   
+    } else {
+        camera->setFarClipDistance(50000.0f);
+    }
 
     mWindow->setActive(true);
     mWindow->setAutoUpdated(false);
 }
 
-void RenderSystem::loadHome() {
+void RenderSystem::loadScene() {
     initCamera();
 
-    // Creating monster head entity
-    Ogre::SceneNode* node = mRootSceneNode->createChildSceneNode("MonsterHead");
-    Ogre::Entity* mosterHeadEntity = mSceneManager->createEntity("MonsterHead.mesh");
-    node->attachObject(mosterHeadEntity);
-
-    // Creating sun
-    Ogre::SceneNode* lightNode = mRootSceneNode->createChildSceneNode("sun");
+    // Set Lights 
+    Ogre::Vector3 lightDir(0.55, -0.3, 0.75);
+    lightDir.normalise();
     Ogre::Light* light = mSceneManager->createLight("sun");
     light->setType(Ogre::Light::LT_DIRECTIONAL);
+    light->setDirection(lightDir);
     light->setDiffuseColour(Ogre::ColourValue::White);
-    light->setSpecularColour(Ogre::ColourValue::White);
-    lightNode->attachObject(light);
+    light->setSpecularColour(Ogre::ColourValue(0.4, 0.4, 0.4));
+    mSceneManager->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2));
 
-    // setting the ambient light
-    Ogre::ColourValue ambientLight(0.2f, 0.2f, 0.2f, 1.0f);
-    mSceneManager->setAmbientLight(ambientLight);
+    // terrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
 
-    std::string nameOfResourceGroup = "Scene 1";
-    Ogre::ResourceGroupManager& resourceGroupManager = Ogre::ResourceGroupManager::getSingleton();
-    resourceGroupManager.createResourceGroup("nameOfResourceGroup");
 
-    for (int i = 0; i < 5; i++) {
-        Ogre::Entity* entity = mSceneManager->createEntity("MonsterHead.mesh");
-        Ogre::SceneNode* node = mRootSceneNode->createChildSceneNode();
-        node->attachObject(entity);
+    // // Creating monster head entity
+    // Ogre::SceneNode* node = mRootSceneNode->createChildSceneNode("MonsterHead");
+    // Ogre::Entity* mosterHeadEntity = mSceneManager->createEntity("MonsterHead.mesh");
+    // node->attachObject(mosterHeadEntity);
 
-        float positionOffset = float(1+i*2) - float(5);
-        positionOffset = positionOffset * 20;
-        node->translate(positionOffset, positionOffset, -200.0f);
+    // // Creating sun
+    // Ogre::SceneNode* lightNode = mRootSceneNode->createChildSceneNode("sun");
+    // Ogre::Light* light = mSceneManager->createLight("sun");
+    // light->setType(Ogre::Light::LT_DIRECTIONAL);
+    // light->setDiffuseColour(Ogre::ColourValue::White);
+    // light->setSpecularColour(Ogre::ColourValue::White);
+    // lightNode->attachObject(light);
 
-        entity->setMaterialName("BaseWite");
-    }
+    // // setting the ambient light
+    // Ogre::ColourValue ambientLight(0.2f, 0.2f, 0.2f, 1.0f);
+    // mSceneManager->setAmbientLight(ambientLight);
+
+    // std::string nameOfResourceGroup = "Scene 1";
+    // Ogre::ResourceGroupManager& resourceGroupManager = Ogre::ResourceGroupManager::getSingleton();
+    // resourceGroupManager.createResourceGroup("nameOfResourceGroup");
+
+    // for (int i = 0; i < 5; i++) {
+    //     Ogre::Entity* entity = mSceneManager->createEntity("MonsterHead.mesh");
+    //     Ogre::SceneNode* node = mRootSceneNode->createChildSceneNode();
+    //     node->attachObject(entity);
+
+    //     float positionOffset = float(1+i*2) - float(5);
+    //     positionOffset = positionOffset * 20;
+    //     node->translate(positionOffset, positionOffset, -200.0f);
+
+    //     entity->setMaterialName("BaseWite");
+    // }
 }
 
 Ogre::RenderWindow* RenderSystem::getRenderWindow() {
@@ -184,4 +204,19 @@ bool RenderSystem::isWindowClosed() {
 
 void RenderSystem::logMessage(std::string msg) {    
     Ogre::LogManager::getSingleton().logMessage(msg);
+}
+
+Component* RenderSystem::createComponent(ComponentType type) {
+    // Todo: Create components
+    switch (type) {
+        case ComponentType::CAMERA:
+
+        case ComponentType::LIGHT:
+
+        case ComponentType::TERRAIN:
+
+        default: 
+            // Error
+            return nullptr;
+    }
 }

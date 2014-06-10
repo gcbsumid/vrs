@@ -28,7 +28,7 @@ InputSystem::~InputSystem() {
     }
 }
 
-void InputSystem::initialise(Ogre::RenderWindow *renderWindow) {
+void InputSystem::initialize(Ogre::RenderWindow *renderWindow) {
     if (!mOgreInputSystem) {
         // Setup of basic variables
         OIS::ParamList paramList;
