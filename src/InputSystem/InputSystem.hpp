@@ -12,9 +12,6 @@
 #include "IInputSystem.hpp"
 #include "../ServiceManager.hpp"
 
-// Todo: Create Interface
-// Todo: create createComponent
-
 class InputSystem : public IInputSystem, public OIS::KeyListener, public OIS::MouseListener {
 public:
     InputSystem();

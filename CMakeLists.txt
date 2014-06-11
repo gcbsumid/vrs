@@ -121,6 +121,7 @@ set(HDRS
     ./src/Engine.hpp
     ./src/ServiceManager.hpp
     ./src/EntitySystem/Entity.hpp
+    ./src/EntitySystem/EntitySystem.hpp
     ./src/EntitySystem/Component.hpp
     ./src/EntitySystem/PlayerEntity.hpp
     ./src/RenderSystem/IRenderSystem.hpp
@@ -137,6 +138,7 @@ set(SRCS
     ./src/Engine.cpp
     ./src/ServiceManager.cpp
     ./src/EntitySystem/PlayerEntity.cpp
+    ./src/EntitySystem/EntitySystem.cpp
     ./src/RenderSystem/RenderSystem.cpp
     ./src/RenderSystem/ResourceManager.cpp
     ./src/RenderSystem/Components/CameraComponent.cpp
