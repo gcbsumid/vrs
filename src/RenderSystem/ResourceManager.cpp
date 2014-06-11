@@ -4,11 +4,10 @@
 
 #include "ResourceManager.hpp"
 
-using namespace VRS;
-
-ResourceManager::ResourceManager() :
-    mSceneManager(nullptr),
-    mSceneRootNode(nullptr) {
+ResourceManager::ResourceManager() 
+    : mSceneManager(nullptr)
+    , mSceneRootNode(nullptr) 
+{
     mMaterialManager = Ogre::MaterialManager::getSingletonPtr();
 }
 

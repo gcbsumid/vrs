@@ -6,20 +6,18 @@
 #include "Entity.hpp"
 #include "Observer.hpp"
 
-namespace VRS {
-    class Subject {
-    public:
-        virtual ~Subject();
-        void addObserver(Observer* observer);
-        void removeObserver(Observer* observer);
-        int getNumObservers();
+class Subject {
+public:
+    virtual ~Subject();
+    void addObserver(Observer* observer);
+    void removeObserver(Observer* observer);
+    int getNumObservers();
 
-    protected:
-        void notify(const Entity& entity, Event event);
+protected:
+    void notify(const Entity& entity, Event event);
 
-    private:
-        std::vector<Observer*> mObservers;
-    };
-}
+private:
+    std::vector<Observer*> mObservers;
+};
 
 #endif

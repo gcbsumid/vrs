@@ -3,15 +3,13 @@
 
 #include "Command.hpp"
 
-namespace VRS {
-	class UpdateCommand : public Command {
-	public:
-		UpdateCommand(uint id) : mId(id) {}
-		virtual ~UpdateCommand() {}
+class UpdateCommand : public Command {
+public:
+	UpdateCommand(uint id) : mId(id) {}
+	virtual ~UpdateCommand() {}
 
-	protected: 
-		uint mId;
-	};
-}
+protected: 
+	uint mId;
+};
 
 #endif

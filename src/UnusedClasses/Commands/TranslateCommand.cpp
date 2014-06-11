@@ -2,8 +2,6 @@
 
 // Todo: Implement ScaleCommand and RotateCommand as well
 
-using namespace VRS;
-
 TranslateCommand::TranslateCommand() {
 	// Todo: Implement
 }

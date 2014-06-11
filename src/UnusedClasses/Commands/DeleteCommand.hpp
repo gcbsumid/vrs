@@ -3,16 +3,14 @@
 
 #include "Command.hpp"
 
-namespace VRS {
-	class DeleteCommand : public Command {
-	public:
-		DeleteCommand(uint id);
-		~DeleteCommand();
-		void execute();
+class DeleteCommand : public Command {
+public:
+	DeleteCommand(uint id);
+	~DeleteCommand();
+	void execute();
 
-	private:
-		uing mId;
-	};
-}
+private:
+	uing mId;
+};
 
 #endif

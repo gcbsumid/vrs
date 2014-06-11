@@ -14,7 +14,7 @@ public:
     CameraComponent();
     virtual ~CameraComponent();
 
-    void initalise(Ogre::SceneManager* mSceneManager, Ogre::SceneNode* parentNode, Ogre::RenderWindow* window, bool infiniteFarPlane);
+    void initialize(Ogre::SceneManager* mSceneManager, Ogre::SceneNode* parentNode, Ogre::RenderWindow* window, bool infiniteFarPlane);
 
 private:
     Ogre::SceneNode* mNode;

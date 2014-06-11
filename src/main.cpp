@@ -22,8 +22,8 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
 int main(int argc, char* argv[]) 
 #endif
 {
-    unique_ptr<VRS::Engine> engine(nullptr);
-    engine = unique_ptr<VRS::Engine> (new VRS::Engine());
+    unique_ptr<Engine> engine(nullptr);
+    engine = unique_ptr<Engine> (new Engine());
 
     try {
         engine->initialize();

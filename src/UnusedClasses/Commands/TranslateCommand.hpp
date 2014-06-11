@@ -3,14 +3,12 @@
 
 #include "UpdateCommand.hpp"
 
-namespace VRS {
-	class TranslateCommand : public UpdateCommand {
-	public: 
-		TranslateCommand();
-		~TranslateCommand();
+class TranslateCommand : public UpdateCommand {
+public: 
+	TranslateCommand();
+	~TranslateCommand();
 
-		void execute();
-	};
-}
+	void execute();
+};
 
 #endif

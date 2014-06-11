@@ -1,7 +1,5 @@
 #include "Subject.hpp"
 
-using namespace VRS;
-
 Subject::~Subject() {
     mObservers.clear();
 }

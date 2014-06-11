@@ -1,4 +1,5 @@
 #include "RenderSystem.hpp"
+#include "Components/CameraComponent.hpp"
 #include "OGRE/OgreSceneManager.h"
 #include "OGRE/OgreLogManager.h"
 #include "OGRE/OgreSceneNode.h"
@@ -8,8 +9,6 @@
 #include <exception>
 #include <vector>
 #include <iostream>
-
-using namespace VRS;
 
 RenderSystem::RenderSystem() :
     mRenderSystemConfigFileName(""),
@@ -208,15 +207,22 @@ void RenderSystem::logMessage(std::string msg) {
 
 Component* RenderSystem::createComponent(ComponentType type) {
     // Todo: Create components
+    Component* comp = nullptr;
     switch (type) {
-        case ComponentType::CAMERA:
-
+        case ComponentType::CAMERA: 
+        {
+            CameraComponent* cameraComp = new CameraComponent;
+            cameraComp->initialize(mSceneManager, mRootSceneNode, mWindow, true);
+            comp = (Component*)cameraComp; 
+        }
+            break;
         case ComponentType::LIGHT:
 
         case ComponentType::TERRAIN:
 
         default: 
             // Error
-            return nullptr;
+            break;
     }
+    return comp;
 }

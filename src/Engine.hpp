@@ -5,26 +5,29 @@
 
 #include "RenderSystem/RenderSystem.hpp"
 #include "InputSystem/InputSystem.hpp"
+#include "ServiceManager.hpp"
 
 // Temp
 #include "InputSystem/BaseListener.hpp"
 
-namespace VRS {
-    class Engine {
-    public:
-        Engine();
-        ~Engine();
+class Engine {
+public:
+    Engine();
+    ~Engine();
 
-        void initialize();
-        void run();
+    void initialize();
+    void run();
 
-    private:
-        std::unique_ptr<RenderSystem> mRenderSystem;
-        std::shared_ptr<InputSystem> mInputSystem;
+private:
+    // Systems
+    std::unique_ptr<RenderSystem> mRenderSystem;
+    std::unique_ptr<InputSystem> mInputSystem;
 
-        // Temp
-        BaseListener mInputListener;
-    };
-}
+    // Managers
+    std::unique_ptr<ServiceManager> mServiceManager;
+
+    // Temp
+    BaseListener mInputListener;
+};
 
 #endif

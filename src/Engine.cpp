@@ -1,11 +1,10 @@
 #include "Engine.hpp"
 #include <string>
 
-using namespace VRS;
-
 Engine::Engine() 
     : mRenderSystem(new RenderSystem) 
     , mInputSystem(new InputSystem)
+    , mServiceManager(new ServiceManager)
 {
 
 }
@@ -19,6 +18,9 @@ void Engine::initialize() {
     mInputSystem->initialize(mRenderSystem->getRenderWindow());
     mInputSystem->addKeyListener(&mInputListener, "temp base");
     mInputSystem->addMouseListener(&mInputListener, "temp base");
+
+    mServiceManager->registerRenderInterface((IRenderSystem*)mRenderSystem.get());
+    // mServiceManager->registerInputInterface((IInputSystem*)mInputSystem.get());
 
     mRenderSystem->initScene();
 }

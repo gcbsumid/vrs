@@ -1,14 +1,20 @@
 #include "CameraComponent.hpp"
 
-CameraComponent::CameraComponent() {
+CameraComponent::CameraComponent() 
+    : mNode(nullptr)
+    , mCamera(nullptr)
+    , mViewport(nullptr)
+{
 
 }
 
 CameraComponent::~CameraComponent() {
-
+    mNode = nullptr;
+    mCamera = nullptr;
+    mViewport = nullptr;
 }
 
-void CameraComponent::initalise(Ogre::SceneManager* sceneManager, 
+void CameraComponent::initialize(Ogre::SceneManager* sceneManager, 
                                 Ogre::SceneNode* parentNode, 
                                 Ogre::RenderWindow* window, 
                                 bool infiniteFarPlane) {

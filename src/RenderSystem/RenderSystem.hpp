@@ -7,83 +7,73 @@
 #include "OGRE/OgreWindowEventUtilities.h"
 
 #include "ResourceManager.hpp"
+#include "IRenderSystem.hpp"
 #include "../EntitySystem/Component.hpp"
 // #include "../Commands/Command.hpp"
 
 #include <memory>
 #include <queue>
 
-namespace VRS {
+class RenderSystem : public IRenderSystem {
+public:
+    RenderSystem();
+    ~RenderSystem();
 
-    class IRenderSystem {
-    public:
-        virtual ~IRenderSystem() {}   
-        virtual Ogre::RenderWindow* getRenderWindow() = 0;
-        virtual Component* createComponent(ComponentType type) = 0;
-        // virtual void addCommand(Command*) = 0;
-    };
+    // void addCommand(Command* command);
+    void loadResources();
+    void initialize();
+    void run();
 
-    class RenderSystem : public IRenderSystem {
-    public:
-        RenderSystem();
-        ~RenderSystem();
+    void clearEventTimes();
+    bool isWindowClosed();
+    void logMessage(std::string msg);
 
-        // void addCommand(Command* command);
-        void loadResources();
-        void initialize();
-        void run();
+    void initScene(std::string dotSceneFilename = "");
 
-        void clearEventTimes();
-        bool isWindowClosed();
-        void logMessage(std::string msg);
+    // public interface
+    virtual Ogre::RenderWindow* getRenderWindow();
+    virtual Component* createComponent(ComponentType type);
 
-        void initScene(std::string dotSceneFilename = "");
+private:
+    void loadScene();
+    void initCamera();
+    // void processCommands();
 
-        // public interface
-        virtual Ogre::RenderWindow* getRenderWindow();
-        virtual Component* createComponent(ComponentType type);
+    // Optional Config file for render system
+    Ogre::String mRenderSystemConfigFileName;
 
-    private:
-        void loadScene();
-        void initCamera();
-        // void processCommands();
+    // Optional Config file for plugins
+    Ogre::String mPluginConfigFileName;
 
-        // Optional Config file for render system
-        Ogre::String mRenderSystemConfigFileName;
+    // Optional Config file for resources
+    Ogre::String mResourcesConfigFileName;
 
-        // Optional Config file for plugins
-        Ogre::String mPluginConfigFileName;
+    // Optional Log file name
+    Ogre::String mLogFileName;
 
-        // Optional Config file for resources
-        Ogre::String mResourcesConfigFileName;
+    // Ogre Root object
+    std::unique_ptr<Ogre::Root> mRoot;
 
-        // Optional Log file name
-        Ogre::String mLogFileName;
+    // Ogre Window object 
+    Ogre::RenderWindow* mWindow;
 
-        // Ogre Root object
-        std::unique_ptr<Ogre::Root> mRoot;
+    Ogre::SceneManager* mSceneManager;
+    Ogre::SceneNode* mRootSceneNode;
 
-        // Ogre Window object 
-        Ogre::RenderWindow* mWindow;
+    std::shared_ptr<ResourceManager> mResourceManager;
 
-        Ogre::SceneManager* mSceneManager;
-        Ogre::SceneNode* mRootSceneNode;
+    // Window Parameters
+    unsigned int mWindowWidth;
+    unsigned int mWindowHeight;
+    bool mFullScreen;
 
-        std::shared_ptr<ResourceManager> mResourceManager;
-
-        // Window Parameters
-        unsigned int mWindowWidth;
-        unsigned int mWindowHeight;
-        bool mFullScreen;
-
-        // /* TEMP */
-        // Ogre::TerrainGlobalOptions* mTerrainGlobals;
-        // Ogre::TerrainGroup* mTerrainGroup;
-        // bool mTerrainsImported;
+    // /* TEMP */
+    // Ogre::TerrainGlobalOptions* mTerrainGlobals;
+    // Ogre::TerrainGroup* mTerrainGroup;
+    // bool mTerrainsImported;
 
 
-        // std::Queue<Command*> mCommands;
-    };    
-}
+    // std::Queue<Command*> mCommands;
+}; 
 
 #endif
