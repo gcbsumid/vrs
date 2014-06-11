@@ -48,7 +48,9 @@ void RenderSystem::loadResources() {
     mResourceManager->loadResourcesFromConfigFile(mResourcesConfigFileName);
 }
 
-void RenderSystem::initialize() {
+void RenderSystem::initialize(std::shared_ptr<ServiceManager> serviceManager) {
+    mServiceManager = serviceManager;
+    mServiceManager->registerRenderInterface((IRenderSystem*)this);
     try {
         // Create the Ogre root object
         std::cerr << "mPlugin: " << mPluginConfigFileName << std::endl;

@@ -24,7 +24,7 @@ private:
     std::unique_ptr<InputSystem> mInputSystem;
 
     // Managers
-    std::unique_ptr<ServiceManager> mServiceManager;
+    std::shared_ptr<ServiceManager> mServiceManager;
 
     // Temp
     BaseListener mInputListener;

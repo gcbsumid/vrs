@@ -2,6 +2,7 @@
 
 ServiceManager::ServiceManager() 
     : mRenderInterface(nullptr)
+    , mInputInterface(nullptr)
 {
 
 }
@@ -17,7 +18,7 @@ Component* ServiceManager::createComponent(ComponentType type) {
         case ComponentType::TERRAIN:
             return mRenderInterface->createComponent(type);
         case ComponentType::INPUT:
-            // return mInputInterface->createComponent(type);
+            return mInputInterface->createComponent(type);
         default:
             return nullptr;
     }
@@ -27,6 +28,6 @@ void ServiceManager::registerRenderInterface(IRenderSystem* renderSystem) {
     mRenderInterface = renderSystem;
 }
 
-// void ServiceManager::registerInputInterface(IInputSystem* inputSystem) {
-//     mInputInterface = inputSystem;
-// }
+void ServiceManager::registerInputInterface(IInputSystem* inputSystem) {
+    mInputInterface = inputSystem;
+}

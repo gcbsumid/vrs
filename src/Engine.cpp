@@ -14,13 +14,10 @@ Engine::~Engine() {
 }
 
 void Engine::initialize() {
-    mRenderSystem->initialize();
-    mInputSystem->initialize(mRenderSystem->getRenderWindow());
+    mRenderSystem->initialize(mServiceManager);
+    mInputSystem->initialize(mServiceManager, mRenderSystem->getRenderWindow());
     mInputSystem->addKeyListener(&mInputListener, "temp base");
     mInputSystem->addMouseListener(&mInputListener, "temp base");
-
-    mServiceManager->registerRenderInterface((IRenderSystem*)mRenderSystem.get());
-    // mServiceManager->registerInputInterface((IInputSystem*)mInputSystem.get());
 
     mRenderSystem->initScene();
 }

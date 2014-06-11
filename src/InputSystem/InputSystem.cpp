@@ -28,7 +28,9 @@ InputSystem::~InputSystem() {
     }
 }
 
-void InputSystem::initialize(Ogre::RenderWindow *renderWindow) {
+void InputSystem::initialize(std::shared_ptr<ServiceManager> serviceManager, Ogre::RenderWindow *renderWindow) {
+    mServiceManager = serviceManager;
+    mServiceManager->registerInputInterface((IInputSystem*)this);
     if (!mOgreInputSystem) {
         // Setup of basic variables
         OIS::ParamList paramList;
@@ -181,4 +183,17 @@ bool InputSystem::mouseReleased( const OIS::MouseEvent &e, OIS::MouseButtonID id
     }
  
     return true;
+}
+
+Component* InputSystem::createComponent(ComponentType type) {
+    // Todo: Create components
+    Component* comp = nullptr;
+    switch (type) {
+        case ComponentType::INPUT: 
+            break;
+        default: 
+            // Error
+            break;
+    }
+    return comp;
 }

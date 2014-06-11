@@ -127,6 +127,7 @@ set(HDRS
     ./src/RenderSystem/RenderSystem.hpp
     ./src/RenderSystem/ResourceManager.hpp
     ./src/RenderSystem/Components/CameraComponent.hpp
+    ./src/InputSystem/IInputSystem.hpp
     ./src/InputSystem/InputSystem.hpp
     ./src/InputSystem/BaseListener.hpp
 )

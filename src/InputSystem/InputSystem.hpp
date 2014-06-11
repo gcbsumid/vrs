@@ -1,6 +1,7 @@
 #ifndef INPUTMANGER_HPP
 #define INPUTMANGER_HPP 
 
+#include <memory>
 #include <OISMouse.h>
 #include <OISKeyboard.h>
 #include <OISInputManager.h>
@@ -8,15 +9,18 @@
 
 #include <OgreRenderWindow.h>
 
+#include "IInputSystem.hpp"
+#include "../ServiceManager.hpp"
+
 // Todo: Create Interface
 // Todo: create createComponent
 
-class InputSystem : public OIS::KeyListener, public OIS::MouseListener {
+class InputSystem : public IInputSystem, public OIS::KeyListener, public OIS::MouseListener {
 public:
     InputSystem();
     virtual ~InputSystem();
 
-    void initialize(Ogre::RenderWindow *renderWindow);
+    void initialize(std::shared_ptr<ServiceManager> serviceManager, Ogre::RenderWindow *renderWindow);
     void capture();
 
     void addKeyListener(OIS::KeyListener *keyListener, const std::string name);
@@ -30,6 +34,9 @@ public:
     void removeAllMouseListeners();
 
     void setWindowExtents( int width, int height );
+
+    // Public interface 
+    virtual Component* createComponent(ComponentType type);
 
 private:
     InputSystem(const InputSystem&) {}
@@ -48,6 +55,9 @@ private:
 
     std::map<std::string, OIS::KeyListener*> mKeyListeners;
     std::map<std::string, OIS::MouseListener*> mMouseListeners;
+
+    // Service Manager
+    std::shared_ptr<ServiceManager> mServiceManager;
 };
 
 #endif

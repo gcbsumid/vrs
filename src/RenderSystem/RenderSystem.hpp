@@ -9,6 +9,7 @@
 #include "ResourceManager.hpp"
 #include "IRenderSystem.hpp"
 #include "../EntitySystem/Component.hpp"
+#include "../ServiceManager.hpp"
 // #include "../Commands/Command.hpp"
 
 #include <memory>
@@ -21,7 +22,7 @@ public:
 
     // void addCommand(Command* command);
     void loadResources();
-    void initialize();
+    void initialize(std::shared_ptr<ServiceManager> serviceManager);
     void run();
 
     void clearEventTimes();
@@ -38,6 +39,8 @@ private:
     void loadScene();
     void initCamera();
     // void processCommands();
+
+    // OGRE member variables 
 
     // Optional Config file for render system
     Ogre::String mRenderSystemConfigFileName;
@@ -66,6 +69,9 @@ private:
     unsigned int mWindowWidth;
     unsigned int mWindowHeight;
     bool mFullScreen;
+
+    // Service Manager
+    std::shared_ptr<ServiceManager> mServiceManager;
 
     // /* TEMP */
     // Ogre::TerrainGlobalOptions* mTerrainGlobals;

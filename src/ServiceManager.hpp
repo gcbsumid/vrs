@@ -3,14 +3,14 @@
 
 #include "EntitySystem/Component.hpp"
 #include "RenderSystem/IRenderSystem.hpp"
-// #include "InputSystem/IInputSystem.hpp"
+#include "InputSystem/IInputSystem.hpp"
 
-class Engine;
+class InputSystem;
+class RenderSystem;
 
 class ServiceManager {
-    friend class Engine;
-    // friend class IInputSystem;
-
+    friend class RenderSystem;
+    friend class InputSystem;
 public:
     ServiceManager();
     virtual ~ServiceManager();
@@ -21,10 +21,10 @@ public:
 private:
 
     void registerRenderInterface(IRenderSystem* renderSystem);
-    // void registerInputSystem(IInputSystem* inputSystem);
+    void registerInputInterface(IInputSystem* inputSystem);
 
     IRenderSystem* mRenderInterface;
-    // IInputSystem* mInputInferface;
+    IInputSystem* mInputInterface;
 };
 
 #endif
