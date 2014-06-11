@@ -16,7 +16,7 @@ public:
     virtual ~ServiceManager();
 
     // Interface
-    Component* createComponent(ComponentType type);
+    Component* createComponent(ComponentType type, std::string name);
 
 private:
 

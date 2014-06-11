@@ -11,14 +11,14 @@ ServiceManager::~ServiceManager() {
     mRenderInterface = nullptr;
 }
 
-Component* ServiceManager::createComponent(ComponentType type) {
+Component* ServiceManager::createComponent(ComponentType type, std::string name) {
     switch (type) {
         case ComponentType::CAMERA:
         case ComponentType::LIGHT:
         case ComponentType::TERRAIN:
-            return mRenderInterface->createComponent(type);
+            return mRenderInterface->createComponent(type, name);
         case ComponentType::INPUT:
-            return mInputInterface->createComponent(type);
+            return mInputInterface->createComponent(type, name);
         default:
             return nullptr;
     }

@@ -128,6 +128,7 @@ set(HDRS
     ./src/RenderSystem/RenderSystem.hpp
     ./src/RenderSystem/ResourceManager.hpp
     ./src/RenderSystem/Components/CameraComponent.hpp
+    ./src/RenderSystem/Components/LightComponent.hpp
     ./src/InputSystem/IInputSystem.hpp
     ./src/InputSystem/InputSystem.hpp
     ./src/InputSystem/BaseListener.hpp
@@ -142,6 +143,7 @@ set(SRCS
     ./src/RenderSystem/RenderSystem.cpp
     ./src/RenderSystem/ResourceManager.cpp
     ./src/RenderSystem/Components/CameraComponent.cpp
+    ./src/RenderSystem/Components/LightComponent.cpp
     ./src/InputSystem/InputSystem.cpp
     ./src/InputSystem/BaseListener.cpp
 )

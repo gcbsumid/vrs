@@ -185,7 +185,7 @@ bool InputSystem::mouseReleased( const OIS::MouseEvent &e, OIS::MouseButtonID id
     return true;
 }
 
-Component* InputSystem::createComponent(ComponentType type) {
+Component* InputSystem::createComponent(ComponentType type, std::string name) {
     // Todo: Create components
     Component* comp = nullptr;
     switch (type) {

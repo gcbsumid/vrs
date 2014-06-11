@@ -33,7 +33,7 @@ public:
     void setWindowExtents( int width, int height );
 
     // Public interface 
-    virtual Component* createComponent(ComponentType type);
+    virtual Component* createComponent(ComponentType type, std::string name);
 
 private:
     InputSystem(const InputSystem&) {}

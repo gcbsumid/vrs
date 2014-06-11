@@ -1,5 +1,7 @@
 #include "RenderSystem.hpp"
 #include "Components/CameraComponent.hpp"
+#include "Components/LightComponent.hpp"
+
 #include "OGRE/OgreSceneManager.h"
 #include "OGRE/OgreLogManager.h"
 #include "OGRE/OgreSceneNode.h"
@@ -207,19 +209,24 @@ void RenderSystem::logMessage(std::string msg) {
     Ogre::LogManager::getSingleton().logMessage(msg);
 }
 
-Component* RenderSystem::createComponent(ComponentType type) {
+Component* RenderSystem::createComponent(ComponentType type, std::string name) {
     // Todo: Create components
     Component* comp = nullptr;
     switch (type) {
         case ComponentType::CAMERA: 
         {
             CameraComponent* cameraComp = new CameraComponent;
-            cameraComp->initialize(mSceneManager, mRootSceneNode, mWindow, true);
+            cameraComp->initialize(name, mSceneManager, mRootSceneNode, mWindow, true);
             comp = (Component*)cameraComp; 
         }
             break;
         case ComponentType::LIGHT:
-
+        {
+            LightComponent* lightComp = new LightComponent;
+            lightComp->initialize(name, mSceneManager);
+            comp = (Component*)lightComp;
+        }
+            break;
         case ComponentType::TERRAIN:
 
         default: 

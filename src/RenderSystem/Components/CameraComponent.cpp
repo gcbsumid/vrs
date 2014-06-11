@@ -1,7 +1,8 @@
 #include "CameraComponent.hpp"
 
 CameraComponent::CameraComponent() 
-    : mNode(nullptr)
+    : Component()
+    , mNode(nullptr)
     , mCamera(nullptr)
     , mViewport(nullptr)
 {
@@ -14,12 +15,13 @@ CameraComponent::~CameraComponent() {
     mViewport = nullptr;
 }
 
-void CameraComponent::initialize(Ogre::SceneManager* sceneManager, 
-                                Ogre::SceneNode* parentNode, 
-                                Ogre::RenderWindow* window, 
-                                bool infiniteFarPlane) {
-    mCamera = sceneManager->createCamera("Camera");
-    mNode = parentNode->createChildSceneNode("CameraNode");
+void CameraComponent::initialize(std::string name,
+                                 Ogre::SceneManager* sceneManager, 
+                                 Ogre::SceneNode* parentNode, 
+                                 Ogre::RenderWindow* window, 
+                                 bool infiniteFarPlane) {
+    mCamera = sceneManager->createCamera(name);
+    mNode = parentNode->createChildSceneNode(name);
     mNode->attachObject(mCamera);
 
     // Create Viewport 

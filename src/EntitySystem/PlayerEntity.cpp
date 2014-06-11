@@ -13,6 +13,6 @@ PlayerEntity::~PlayerEntity() {
 }
 
 void PlayerEntity::initialize(std::shared_ptr<ServiceManager> serviceManager) {
-    mCameraComp = std::shared_ptr<CameraComponent>((CameraComponent*)serviceManager->createComponent(ComponentType::CAMERA));
+    mCameraComp = std::shared_ptr<CameraComponent>((CameraComponent*)serviceManager->createComponent(ComponentType::CAMERA, "Player"));
     // Todo: Create the input component
 }

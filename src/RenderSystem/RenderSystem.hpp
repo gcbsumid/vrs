@@ -33,7 +33,7 @@ public:
 
     // public interface
     virtual Ogre::RenderWindow* getRenderWindow();
-    virtual Component* createComponent(ComponentType type);
+    virtual Component* createComponent(ComponentType type, std::string name);
 
 private:
     void loadScene();

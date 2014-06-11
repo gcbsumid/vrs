@@ -8,13 +8,16 @@
 #include "OGRE/OgreViewport.h"
 #include "../../EntitySystem/Component.hpp"
 
-class CameraComponent
-{
+class CameraComponent : public Component {
 public:
     CameraComponent();
     virtual ~CameraComponent();
 
-    void initialize(Ogre::SceneManager* mSceneManager, Ogre::SceneNode* parentNode, Ogre::RenderWindow* window, bool infiniteFarPlane);
+    void initialize(std::string name, 
+                    Ogre::SceneManager* mSceneManager, 
+                    Ogre::SceneNode* parentNode, 
+                    Ogre::RenderWindow* window, 
+                    bool infiniteFarPlane);
 
 private:
     Ogre::SceneNode* mNode;
