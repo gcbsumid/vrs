@@ -3,6 +3,8 @@
 
 #include "Entity.hpp"
 #include "../RenderSystem/Components/CameraComponent.hpp"
+#include "../InputSystem/Components/MouseComponent.hpp"
+#include "../InputSystem/Components/KeyboardComponent.hpp"
 
 class PlayerEntity : public Entity
 {
@@ -14,7 +16,8 @@ public:
 
 private:
     std::shared_ptr<CameraComponent> mCameraComp;
-    // std::shared_ptr<InputComponent> mInputComp;
+    std::shared_ptr<KeyboardComponent> mKeyboardComp;
+    std::shared_ptr<MouseComponent> mMouseComp;
 };
 
 #endif
