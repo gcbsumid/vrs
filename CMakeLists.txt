@@ -124,6 +124,7 @@ set(HDRS
     ./src/EntitySystem/EntitySystem.hpp
     ./src/EntitySystem/Component.hpp
     ./src/EntitySystem/PlayerEntity.hpp
+    ./src/EntitySystem/LightEntity.hpp
     ./src/RenderSystem/IRenderSystem.hpp
     ./src/RenderSystem/RenderSystem.hpp
     ./src/RenderSystem/ResourceManager.hpp
@@ -132,20 +133,25 @@ set(HDRS
     ./src/InputSystem/IInputSystem.hpp
     ./src/InputSystem/InputSystem.hpp
     ./src/InputSystem/BaseListener.hpp
+    ./src/InputSystem/Components/KeyboardComponent.hpp
+    ./src/InputSystem/Components/MouseComponent.hpp
 )
 
 set(SRCS
     ./src/main.cpp
     ./src/Engine.cpp
     ./src/ServiceManager.cpp
-    ./src/EntitySystem/PlayerEntity.cpp
     ./src/EntitySystem/EntitySystem.cpp
+    ./src/EntitySystem/PlayerEntity.cpp
+    ./src/EntitySystem/LightEntity.cpp
     ./src/RenderSystem/RenderSystem.cpp
     ./src/RenderSystem/ResourceManager.cpp
     ./src/RenderSystem/Components/CameraComponent.cpp
     ./src/RenderSystem/Components/LightComponent.cpp
     ./src/InputSystem/InputSystem.cpp
     ./src/InputSystem/BaseListener.cpp
+    ./src/InputSystem/Components/KeyboardComponent.cpp
+    ./src/InputSystem/Components/MouseComponent.cpp
 )
 
 include_directories( 

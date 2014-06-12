@@ -8,7 +8,8 @@ enum class ComponentType {
     TERRAIN,
 
     // Input System Components
-    INPUT,
+    KEYBOARD,
+    MOUSE,
 };
 
 class Component

@@ -10,6 +10,8 @@
 #include <OgreRenderWindow.h>
 
 #include "IInputSystem.hpp"
+#include "Components/KeyboardComponent.hpp"
+#include "Components/MouseComponent.hpp"
 #include "../ServiceManager.hpp"
 
 class InputSystem : public IInputSystem, public OIS::KeyListener, public OIS::MouseListener {
@@ -20,8 +22,8 @@ public:
     void initialize(std::shared_ptr<ServiceManager> serviceManager, Ogre::RenderWindow *renderWindow);
     void capture();
 
-    void addKeyListener(OIS::KeyListener *keyListener, const std::string name);
-    void addMouseListener(OIS::MouseListener *mouseListener, const std::string name);
+    void addKeyListener(KeyboardComponent* keyListener, const std::string name);
+    void addMouseListener(MouseComponent* mouseListener, const std::string name);
 
     void removeKeyListener(const std::string name);
     void removeMouseListener(const std::string name);
@@ -48,10 +50,10 @@ private:
 
     OIS::Mouse        *mMouse;
     OIS::Keyboard     *mKeyboard;
-    OIS::InputManager *mOgreInputSystem;
+    OIS::InputManager *mOgreInputManager;
 
-    std::map<std::string, OIS::KeyListener*> mKeyListeners;
-    std::map<std::string, OIS::MouseListener*> mMouseListeners;
+    std::map<std::string, KeyboardComponent*> mKeyListeners;
+    std::map<std::string, MouseComponent*> mMouseListeners;
 
     // Service Manager
     std::shared_ptr<ServiceManager> mServiceManager;

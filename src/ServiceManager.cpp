@@ -17,7 +17,8 @@ Component* ServiceManager::createComponent(ComponentType type, std::string name)
         case ComponentType::LIGHT:
         case ComponentType::TERRAIN:
             return mRenderInterface->createComponent(type, name);
-        case ComponentType::INPUT:
+        case ComponentType::KEYBOARD:
+        case ComponentType::MOUSE:
             return mInputInterface->createComponent(type, name);
         default:
             return nullptr;

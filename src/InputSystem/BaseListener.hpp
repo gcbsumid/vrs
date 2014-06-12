@@ -1,10 +1,12 @@
 #ifndef BASELISTENER_HPP
 #define BASELISTENER_HPP
 
-#include <OISMouse.h>
-#include <OISKeyboard.h>
+#include "Components/KeyboardComponent.hpp"
+#include "Components/MouseComponent.hpp"
 
-class BaseListener : public OIS::KeyListener, public OIS::MouseListener {
+// Todo: eventually remove this. This is only temporary
+
+class BaseListener : public KeyboardComponent, public MouseComponent {
 public:
     BaseListener();
     virtual ~BaseListener();

@@ -2,9 +2,7 @@
 #define PLAYERENTITY_HPP 
 
 #include "Entity.hpp"
-#include "../ServiceManager.hpp"
 #include "../RenderSystem/Components/CameraComponent.hpp"
-#include <memory>
 
 class PlayerEntity : public Entity
 {
@@ -12,7 +10,7 @@ public:
     PlayerEntity();
     virtual ~PlayerEntity();
 
-    virtual void initialize(std::shared_ptr<ServiceManager> serviceManager);
+    virtual void initialize(std::shared_ptr<ServiceManager> serviceManager, std::string name);
 
 private:
     std::shared_ptr<CameraComponent> mCameraComp;

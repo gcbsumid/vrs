@@ -4,23 +4,23 @@
 InputSystem::InputSystem() 
     : mMouse(nullptr)
     , mKeyboard(nullptr)
-    , mOgreInputSystem(nullptr) 
+    , mOgreInputManager(nullptr) 
     {}
 
 InputSystem::~InputSystem() {
-    if (mOgreInputSystem) {
+    if (mOgreInputManager) {
         if (mMouse) {
-            mOgreInputSystem->destroyInputObject(mMouse);
+            mOgreInputManager->destroyInputObject(mMouse);
             mMouse = nullptr;
         }
 
         if (mKeyboard) {
-            mOgreInputSystem->destroyInputObject(mKeyboard);
+            mOgreInputManager->destroyInputObject(mKeyboard);
             mKeyboard = nullptr;
         }
         
-        mOgreInputSystem->destroyInputSystem(mOgreInputSystem);
-        mOgreInputSystem = nullptr;
+        mOgreInputManager->destroyInputSystem(mOgreInputManager);
+        mOgreInputManager = nullptr;
 
         // Clear Listeners
         mKeyListeners.clear();
@@ -31,7 +31,7 @@ InputSystem::~InputSystem() {
 void InputSystem::initialize(std::shared_ptr<ServiceManager> serviceManager, Ogre::RenderWindow *renderWindow) {
     mServiceManager = serviceManager;
     mServiceManager->registerInputInterface((IInputSystem*)this);
-    if (!mOgreInputSystem) {
+    if (!mOgreInputManager) {
         // Setup of basic variables
         OIS::ParamList paramList;
         size_t windowHnd = 0;
@@ -45,17 +45,17 @@ void InputSystem::initialize(std::shared_ptr<ServiceManager> serviceManager, Ogr
         paramList.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
         // Create Input System
-        mOgreInputSystem = OIS::InputManager::createInputSystem(paramList);
+        mOgreInputManager = OIS::InputManager::createInputSystem(paramList);
 
         // create a buffered keyboard
-        if (mOgreInputSystem->getNumberOfDevices(OIS::OISKeyboard) > 0) {
-            mKeyboard = static_cast<OIS::Keyboard*>(mOgreInputSystem->createInputObject(OIS::OISKeyboard, true));
+        if (mOgreInputManager->getNumberOfDevices(OIS::OISKeyboard) > 0) {
+            mKeyboard = static_cast<OIS::Keyboard*>(mOgreInputManager->createInputObject(OIS::OISKeyboard, true));
             mKeyboard->setEventCallback(this);
         }
 
         // create a buffered mouse
-        if (mOgreInputSystem->getNumberOfDevices(OIS::OISMouse) > 0) {
-            mMouse = static_cast<OIS::Mouse*>(mOgreInputSystem->createInputObject( OIS::OISMouse, true));
+        if (mOgreInputManager->getNumberOfDevices(OIS::OISMouse) > 0) {
+            mMouse = static_cast<OIS::Mouse*>(mOgreInputManager->createInputObject( OIS::OISMouse, true));
             mMouse->setEventCallback(this);
  
             // Get window size
@@ -80,7 +80,7 @@ void InputSystem::capture( void ) {
     }
 }
 
-void InputSystem::addKeyListener(OIS::KeyListener *keyListener, const std::string name) {
+void InputSystem::addKeyListener(KeyboardComponent* keyListener, const std::string name) {
     if (mKeyboard) {
         // Check for duplicate items
         if (mKeyListeners.count(name) == 0) {
@@ -89,7 +89,7 @@ void InputSystem::addKeyListener(OIS::KeyListener *keyListener, const std::strin
     }
 }
  
-void InputSystem::addMouseListener(OIS::MouseListener *mouseListener, const std::string name) {
+void InputSystem::addMouseListener(MouseComponent* mouseListener, const std::string name) {
     if (mMouse) {
         // Check for duplicate items
         if (mMouseListeners.count(name) == 0) {
@@ -189,7 +189,21 @@ Component* InputSystem::createComponent(ComponentType type, std::string name) {
     // Todo: Create components
     Component* comp = nullptr;
     switch (type) {
-        case ComponentType::INPUT: 
+        case ComponentType::KEYBOARD: 
+        {
+            KeyboardComponent* keyboardComp = new KeyboardComponent;
+            keyboardComp->initialize();
+            this->addKeyListener(keyboardComp, name);
+            comp = (Component*)keyboardComp;
+        }
+            break;
+        case ComponentType::MOUSE: 
+        {
+            MouseComponent* mouseComp = new MouseComponent;
+            mouseComp->initialize();
+            this->addMouseListener(mouseComp, name);
+            comp = (Component*)mouseComp;
+        }
             break;
         default: 
             // Error
